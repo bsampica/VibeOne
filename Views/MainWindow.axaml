@@ -3,6 +3,7 @@
         xmlns:vm="using:VibeNine.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
         x:Class="VibeNine.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -37,7 +38,7 @@
                     <Button HorizontalAlignment="Right" Background="Transparent"
                             Click="ToggleMenu_OnClick">
                         <Button.Content>
-                            <materialIcons:MaterialIcon
+                            <avalonia:MaterialIcon
                                 Kind="HamburgerClose"
                                 Width="30"
                                 Height="30" />
@@ -45,25 +46,27 @@
                     </Button>
                     <Border BorderBrush="DimGray" Opacity=".3" BorderThickness="1" />
 
-                    <Button Width="200" Background="Transparent">
+                    <Button Width="200" Background="Transparent"
+                            Command="{Binding NavigateHomeCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
-                                <materialIcons:MaterialIcon Kind="Gauge"
-                                                            Foreground="White"
-                                                            Height="30"
-                                                            Width="30" />
+                                <avalonia:MaterialIcon Kind="Gauge"
+                                                       Foreground="White"
+                                                       Height="30"
+                                                       Width="30" />
                                 <TextBlock Text="Dashboard" Margin="10,0,0,0" FontSize="18"
                                            VerticalAlignment="Center" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
-                    <Button Width="200" Background="Transparent">
+                    <Button Width="200" Background="Transparent"
+                            Command="{Binding NavigateOperationsCommand}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal">
-                                <materialIcons:MaterialIcon Kind="Apps"
-                                                            Foreground="White"
-                                                            Height="30"
-                                                            Width="30" />
+                                <avalonia:MaterialIcon Kind="Apps"
+                                                       Foreground="White"
+                                                       Height="30"
+                                                       Width="30" />
                                 <TextBlock Text="Operations" Margin="10,0,0,0" FontSize="18"
                                            VerticalAlignment="Center" />
 
@@ -74,125 +77,19 @@
                 <!-- END NAV PANE -->
             </SplitView.Pane>
             <!-- SPLITVIEW CONTENT AREA -->
-            <WrapPanel Orientation="Horizontal">
-                <Panel Width="150" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" Margin="10">
-                    <Border Width="150" CornerRadius="15">
-                        <Border.Background>
-                            <LinearGradientBrush>
-                                <GradientStops>
-                                    <GradientStop Color="Aqua" Offset="0"></GradientStop>
-                                    <GradientStop Color="CornflowerBlue" Offset="1"></GradientStop>
-                                </GradientStops>
-                            </LinearGradientBrush>
-                        </Border.Background>
-
-                        <StackPanel Orientation="Vertical">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="55" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="55"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Ellipse Grid.Column="0"
-                                         Width="40"
-                                         Height="40"
-                                         Fill="White"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Top"
-                                         Margin="5">
-                                </Ellipse>
-                                <materialIcons:MaterialIcon Grid.Column="0"
-                                                            HorizontalAlignment="Left"
-                                                            VerticalAlignment="Top"
-                                                            Foreground="SlateGray"
-                                                            Kind="FlaskOutline"
-                                                            Width="30"
-                                                            Height="30"
-                                                            Margin="9">
-                                    <materialIcons:MaterialIcon.RenderTransform>
-                                        <RotateTransform Angle="180" />
-                                    </materialIcons:MaterialIcon.RenderTransform>
-                                </materialIcons:MaterialIcon>
-                                <TextBlock Grid.Column="1" Text="10°C"
-                                           HorizontalAlignment="Right"
-                                           Margin="0,0,10,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="24"
-                                           FontWeight="Black" />
-                            </Grid>
-                            <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Started: 18:50" FontSize="11"></TextBlock>
-                                <TextBlock Text="Cooling Cycle"
-                                           FontSize="18" FontWeight="Black">
-                                </TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Panel>
-
-                <!-- PANEL 2-->
-                <Panel Width="150" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" Margin="10">
-                    <Border Width="150" CornerRadius="15">
-                        <Border.Background>
-                            <LinearGradientBrush>
-                                <GradientStops>
-                                    <GradientStop Color="RosyBrown" Offset="0"></GradientStop>
-                                    <GradientStop Color="SaddleBrown" Offset="1"></GradientStop>
-                                </GradientStops>
-                            </LinearGradientBrush>
-                        </Border.Background>
-
-                        <StackPanel Orientation="Vertical">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="55" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="55"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Ellipse Grid.Column="0"
-                                         Width="40"
-                                         Height="40"
-                                         Fill="White"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Top"
-                                         Margin="5">
-                                </Ellipse>
-                                <materialIcons:MaterialIcon Grid.Column="0"
-                                                            HorizontalAlignment="Left"
-                                                            VerticalAlignment="Top"
-                                                            Foreground="SlateGray"
-                                                            Kind="FlaskOutline"
-                                                            Width="30"
-                                                            Height="30"
-                                                            Margin="9">
-                                    <materialIcons:MaterialIcon.RenderTransform>
-                                        <RotateTransform Angle="180" />
-                                    </materialIcons:MaterialIcon.RenderTransform>
-                                </materialIcons:MaterialIcon>
-                                <TextBlock Grid.Column="1" Text="31°C"
-                                           HorizontalAlignment="Right"
-                                           Margin="0,0,10,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="24"
-                                           FontWeight="Black" />
-                            </Grid>
-                            <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Idle" FontSize="11"></TextBlock>
-                                <TextBlock Text="Idle"
-                                           FontSize="18" FontWeight="Black">
-                                </TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Panel>
-                <!-- END PANEL 2 -->
-            </WrapPanel>
+            <SplitView.Content>
+                <Grid>
+                    <ProgressBar Margin="0 10" Height="30"
+                                 Minimum="0" Maximum="100" Value="{Binding ProgressPercent}"
+                                 ShowProgressText="True"  VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 IsVisible="{Binding ProgressVisible}"/>
+                    
+                    <ContentControl x:Name="ContentControlLoader"
+                                    IsVisible="{Binding ContentVisible}"
+                                    Content="{Binding CurrentPage}" />
+                </Grid>
+            </SplitView.Content>
             <!-- END SPLITVIEW CONTENT-->
         </SplitView>
     </Panel>
