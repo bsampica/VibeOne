@@ -53,6 +53,7 @@ public class MainWindowViewModel : ViewModelBase
         NavigateHomeCommand = ReactiveCommand.Create(NavigateHomeView);
         NavigateOperationsCommand = ReactiveCommand.Create(NavigateOperationsView);
 
+        // TODO:  Temporary delay enforced to show the loading animation. 
         Task.Run(async () =>
         {
             for (int i = 0; i <= 100; i++)
