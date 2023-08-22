@@ -13,6 +13,6 @@
     
     <StackPanel HorizontalAlignment="Center"
                 VerticalAlignment="Center" >
-        <TextBlock Text="{Binding Title}"></TextBlock>
+        <TextBlock Text="Welcome to the tank details"></TextBlock>
     </StackPanel>
 </UserControl>

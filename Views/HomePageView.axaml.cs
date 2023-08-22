@@ -1,10 +1,9 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using VibeNine.ViewModels;
 
 namespace VibeNine.Views;
 
-public partial class HomePageView : UserControl
+public partial class HomePageView : ReactiveUserControl<HomePageViewModel>
 {
     public HomePageView()
     {

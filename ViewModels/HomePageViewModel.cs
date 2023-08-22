@@ -1,35 +1,19 @@
 using System;
 using System.Windows.Input;
+using ReactiveUI;
+using Splat;
 
 
 namespace VibeNine.ViewModels;
 
 public class HomePageViewModel : PageViewModelBase
 {
+    public sealed override string? UrlPathSegment { get => "Home"; }
+    public sealed override IScreen HostScreen { get; }
     public string Title => "Welcome to the Home Page View: ";
 
-    public ICommand NavigateTankDetailsCommand { get; }
-
-    public HomePageViewModel()
+    public HomePageViewModel(IScreen? screen = null)
     {
-        
+        HostScreen = screen ?? Locator.Current.GetService<IScreen>();
     }
-
-    public void NavigateTankDetails()
-    {
-        
-    }
-
-    // public override bool CanNavigateNext
-    // {
-    //     get => true;a
-    //     protected set => throw new NotSupportedException();
-    // }
-    //
-    // public override bool CanNavigatePrevious
-    // {
-    //     get => true;
-    //     protected set => throw new NotSupportedException();
-    // }
-    //
 }

@@ -1,79 +1,54 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using DynamicData;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
+using Splat;
+using VibeNine.Views;
 
 namespace VibeNine.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase, IScreen
 {
-    private bool _progressVisible = true;
-    private bool _contentVisible = false;
-    
-    public bool ProgressVisible
-    {
-        get => _progressVisible;
-        set => this.RaiseAndSetIfChanged(ref _progressVisible, value);
-    }
-    
-    public bool ContentVisible
-    {
-        get => _contentVisible;
-        set => this.RaiseAndSetIfChanged(ref _contentVisible, value);
-    }
+    public override string? UrlPathSegment { get => "MainWindow"; }
+    public override IScreen? HostScreen { get => throw new NotImplementedException(); }
 
-    private PageViewModelBase _currentPage;
-    public PageViewModelBase CurrentPage
-    {
-        get => _currentPage;
-        private set => this.RaiseAndSetIfChanged(ref _currentPage, value);
-    }
-    
-    public ICommand NavigateHomeCommand { get; }
-    public ICommand NavigateOperationsCommand { get; }
-
-    private int _progressPercent = 0;
-    public int ProgressPercent
-    {
-        get => _progressPercent;
-        set => this.RaiseAndSetIfChanged(ref _progressPercent, value);
-    }
+    public RoutingState Router { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateToOperations { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateToHomeScreen { get; }
 
     public MainWindowViewModel()
     {
-        _currentPage = new HomePageViewModel();
-        //var canNavNext = this.WhenAnyValue(x => x.CurrentPage.)
+        Router = new RoutingState();
+        Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
 
-        NavigateHomeCommand = ReactiveCommand.Create(NavigateHomeView);
-        NavigateOperationsCommand = ReactiveCommand.Create(NavigateOperationsView);
+        // Manage the routing state. Use the Router.Navigate.Execute
+        // command to navigate to different view models. 
+        //
+        // Note, that the Navigate.Execute method accepts an instance 
+        // of a view model, this allows you to pass parameters to 
+        // your view models, or to reuse existing view models.
+        //
+        NavigateToOperations = ReactiveCommand.CreateFromObservable(() =>
+            Router.Navigate.Execute(ExecuteNavOperation()));
 
-        // TODO:  Temporary delay enforced to show the loading animation. 
-        Task.Run(async () =>
-        {
-            for (int i = 0; i <= 100; i++)
-            {
-                ProgressPercent = i;
-                await Task.Delay(100);
-            }
-
-            await Task.Delay(500);
-            this.ProgressVisible = false;
-            this.ContentVisible = true;
-        });
+        NavigateToHomeScreen = ReactiveCommand.CreateFromObservable(() =>
+            Router.Navigate.Execute(ExecuteNavHomepage()));
     }
 
-
-    private void NavigateHomeView()
+    private IRoutableViewModel ExecuteNavOperation()
     {
-        if (_currentPage is HomePageViewModel) return;
-        CurrentPage = new HomePageViewModel();
+        Console.WriteLine("Executing the Operations Link");
+        return new OperationsViewModel();
     }
 
-    private void NavigateOperationsView()
+    private IRoutableViewModel ExecuteNavHomepage()
     {
-        if (_currentPage is OperationsViewModel) return;
-        CurrentPage = new OperationsViewModel();
+        Console.WriteLine("Executing the Homepage Link");
+        return new HomePageViewModel();
     }
 }

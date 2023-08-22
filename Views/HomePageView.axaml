@@ -130,5 +130,8 @@
             </Border>
         </Panel>
         <!-- END PANEL 2 -->
+        <TextBlock x:Name="PathTextBlock" Foreground="White"
+                   Text="{Binding UrlPathSegment}" />
+
     </WrapPanel>
 </UserControl>
