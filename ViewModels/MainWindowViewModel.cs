@@ -11,22 +11,18 @@ public class MainWindowViewModel : ViewModelBase
 {
     private bool _progressVisible = true;
     private bool _contentVisible = false;
+    
     public bool ProgressVisible
     {
         get => _progressVisible;
         set => this.RaiseAndSetIfChanged(ref _progressVisible, value);
     }
+    
     public bool ContentVisible
     {
         get => _contentVisible;
         set => this.RaiseAndSetIfChanged(ref _contentVisible, value);
     }
-
-    private readonly PageViewModelBase[] _pages =
-    {
-        new HomePageViewModel(),
-        new TankDetailsViewModel()
-    };
 
     private PageViewModelBase _currentPage;
     public PageViewModelBase CurrentPage
@@ -34,11 +30,11 @@ public class MainWindowViewModel : ViewModelBase
         get => _currentPage;
         private set => this.RaiseAndSetIfChanged(ref _currentPage, value);
     }
+    
     public ICommand NavigateHomeCommand { get; }
     public ICommand NavigateOperationsCommand { get; }
 
     private int _progressPercent = 0;
-
     public int ProgressPercent
     {
         get => _progressPercent;
@@ -47,7 +43,7 @@ public class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        _currentPage = _pages[0];
+        _currentPage = new HomePageViewModel();
         //var canNavNext = this.WhenAnyValue(x => x.CurrentPage.)
 
         NavigateHomeCommand = ReactiveCommand.Create(NavigateHomeView);
@@ -72,11 +68,12 @@ public class MainWindowViewModel : ViewModelBase
     private void NavigateHomeView()
     {
         if (_currentPage is HomePageViewModel) return;
-        CurrentPage = _pages.First(p => p is HomePageViewModel);
+        CurrentPage = new HomePageViewModel();
     }
 
     private void NavigateOperationsView()
     {
-        throw new NotImplementedException();
+        if (_currentPage is OperationsViewModel) return;
+        CurrentPage = new OperationsViewModel();
     }
 }

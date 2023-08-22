@@ -14,16 +14,16 @@ public class TankDetailsViewModel : PageViewModelBase
     private bool _value1 = false;
     private bool _value2 = false;
 
-// public override bool CanNavigateNext
-// {
-//     get => _value1;
-//     protected set => this.RaiseAndSetIfChanged(ref _value1, value);
-// }
-// public override bool CanNavigatePrevious
-// {
-//     get => _value2;
-//     protected set => this.RaiseAndSetIfChanged(ref _value2, value);
-// }
+    // public override bool CanNavigateNext
+    // {
+    //     get => _value1;
+    //     protected set => this.RaiseAndSetIfChanged(ref _value1, value);
+    // }
+    // public override bool CanNavigatePrevious
+    // {
+    //     get => _value2;
+    //     protected set => this.RaiseAndSetIfChanged(ref _value2, value);
+    // }
 
     public TankDetailsViewModel()
     {

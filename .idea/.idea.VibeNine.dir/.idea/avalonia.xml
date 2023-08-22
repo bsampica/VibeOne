@@ -6,6 +6,7 @@
         <entry key="App.axaml" value="VibeNine.csproj" />
         <entry key="Views/HomePageView.axaml" value="VibeNine.csproj" />
         <entry key="Views/MainWindow.axaml" value="VibeNine.csproj" />
+        <entry key="Views/OperationsView.axaml" value="VibeNine.csproj" />
         <entry key="Views/TankDetailsView.axaml" value="VibeNine.csproj" />
       </map>
     </option>

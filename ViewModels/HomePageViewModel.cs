@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Input;
 
 
 namespace VibeNine.ViewModels;
@@ -7,9 +8,21 @@ public class HomePageViewModel : PageViewModelBase
 {
     public string Title => "Welcome to the Home Page View: ";
 
+    public ICommand NavigateTankDetailsCommand { get; }
+
+    public HomePageViewModel()
+    {
+        
+    }
+
+    public void NavigateTankDetails()
+    {
+        
+    }
+
     // public override bool CanNavigateNext
     // {
-    //     get => true;
+    //     get => true;a
     //     protected set => throw new NotSupportedException();
     // }
     //
@@ -19,5 +32,4 @@ public class HomePageViewModel : PageViewModelBase
     //     protected set => throw new NotSupportedException();
     // }
     //
-    
 }

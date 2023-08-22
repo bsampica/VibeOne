@@ -8,6 +8,10 @@ namespace VibeNine;
 
 public partial class App : Application
 {
+    // public static PageViewModelBase HomePageViewModel = new HomePageViewModel();
+    // public static PageViewModelBase TankDetailsViewModel = new TankDetailsViewModel();
+    // public static PageViewModelBase OperationsViewModel = new OperationsViewModel();
+    
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
