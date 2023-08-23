@@ -2,10 +2,10 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using ReactiveUI;
-using VibeNine.ViewModels;
-using VibeNine.Views;
+using VibeOne.ViewModels;
+using VibeOne.Views;
 
-namespace VibeNine;
+namespace VibeOne;
 
 public class ViewLocator : IViewLocator
 {

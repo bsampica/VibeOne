@@ -1,6 +1,6 @@
 using ReactiveUI;
 
-namespace VibeNine.ViewModels;
+namespace VibeOne.ViewModels;
 
 public class OperationsViewModel : PageViewModelBase
 {

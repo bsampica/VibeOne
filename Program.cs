@@ -5,7 +5,7 @@ using Splat;
 using System;
 
 
-namespace VibeNine;
+namespace VibeOne;
 
 class Program
 {

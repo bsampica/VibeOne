@@ -1,10 +1,8 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using VibeNine.ViewModels;
 
-namespace VibeNine.Views;
+using Avalonia.ReactiveUI;
+using VibeOne.ViewModels;
+
+namespace VibeOne.Views;
 
 public partial class OperationsView : ReactiveUserControl<OperationsViewModel>
 {

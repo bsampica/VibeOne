@@ -1,7 +1,7 @@
 using Avalonia.ReactiveUI;
-using VibeNine.ViewModels;
+using VibeOne.ViewModels;
 
-namespace VibeNine.Views;
+namespace VibeOne.Views;
 
 public partial class HomePageView : ReactiveUserControl<HomePageViewModel>
 {

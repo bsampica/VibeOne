@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using VibeNine.ViewModels;
-using VibeNine.Views;
+using VibeOne.ViewModels;
+using VibeOne.Views;
 
-namespace VibeNine;
+namespace VibeOne;
 
 public partial class App : Application
 {

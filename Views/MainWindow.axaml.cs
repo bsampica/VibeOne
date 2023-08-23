@@ -6,9 +6,9 @@ using Avalonia.ReactiveUI;
 using Material.Icons;
 using Material.Icons.Avalonia;
 using ReactiveUI;
-using VibeNine.ViewModels;
+using VibeOne.ViewModels;
 
-namespace VibeNine.Views;
+namespace VibeOne.Views;
 
 public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 {

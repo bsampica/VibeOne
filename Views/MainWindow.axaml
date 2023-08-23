@@ -1,12 +1,12 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:VibeNine.ViewModels"
+        xmlns:vm="using:VibeOne.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:reactiveUi="http://reactiveui.net"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
-        x:Class="VibeNine.Views.MainWindow"
+        x:Class="VibeOne.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Vibe NinetyNine"
@@ -34,67 +34,60 @@
                    OpenPaneLength="200">
 
             <SplitView.Pane>
-                <!-- NAVIGATION PANE OF SPLITVIEW -->
-                <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                    <Button HorizontalAlignment="Right" Background="Transparent"
-                            Click="ToggleMenu_OnClick">
-                        <Button.Content>
-                            <avalonia:MaterialIcon
-                                Kind="HamburgerClose"
-                                Width="30"
-                                Height="30" />
-                        </Button.Content>
-                    </Button>
-                    <Border BorderBrush="DimGray" Opacity=".3" BorderThickness="1" />
+                <Panel>
+                    <!-- NAVIGATION PANE OF SPLITVIEW -->
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                        <Button Width="200" Background="Transparent"
+                                Command="{Binding NavigateToHomeScreen}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <avalonia:MaterialIcon Kind="Gauge"
+                                                           Foreground="White"
+                                                           Height="30"
+                                                           Width="30" />
+                                    <TextBlock Text="Dashboard" Margin="10,0,0,0" FontSize="18"
+                                               VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <Button Width="200" Background="Transparent"
+                                Command="{Binding NavigateToOperations}">
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <avalonia:MaterialIcon Kind="Apps"
+                                                           Foreground="White"
+                                                           Height="30"
+                                                           Width="30" />
+                                    <TextBlock Text="Operations" Margin="10,0,0,0" FontSize="18"
+                                               VerticalAlignment="Center" />
 
-                    <Button Width="200" Background="Transparent"
-                            Command="{Binding NavigateToHomeScreen}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <avalonia:MaterialIcon Kind="Gauge"
-                                                       Foreground="White"
-                                                       Height="30"
-                                                       Width="30" />
-                                <TextBlock Text="Dashboard" Margin="10,0,0,0" FontSize="18"
-                                           VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                    <Button Width="200" Background="Transparent"
-                            Command="{Binding NavigateToOperations}">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal">
-                                <avalonia:MaterialIcon Kind="Apps"
-                                                       Foreground="White"
-                                                       Height="30"
-                                                       Width="30" />
-                                <TextBlock Text="Operations" Margin="10,0,0,0" FontSize="18"
-                                           VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        <!-- MENU OPEN AND CLOSE -->
 
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
-                </StackPanel>
+                        <!-- END MENU OPEN AND CLOSE -->
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
+                        <Border BorderBrush="DimGray" Opacity=".3" BorderThickness="1" />
+                        <Button HorizontalAlignment="Right" Background="Transparent"
+                                Click="ToggleMenu_OnClick" VerticalAlignment="Bottom">
+                            <Button.Content>
+                                <avalonia:MaterialIcon
+                                    Kind="HamburgerClose"
+                                    Width="30"
+                                    Height="30" />
+                            </Button.Content>
+                        </Button>
+                    </StackPanel>
+
+                </Panel>
                 <!-- END NAV PANE -->
             </SplitView.Pane>
             <!-- SPLITVIEW CONTENT AREA -->
             <reactiveUi:RoutedViewHost
                 x:Name="RoutedViewHost" Router="{Binding Router}">
             </reactiveUi:RoutedViewHost>
-            <!-- <SplitView.Content> -->
-            <!--     <Grid> -->
-            <!--         <ProgressBar Margin="0 10" Height="30" -->
-            <!--                      Minimum="0" Maximum="100" Value="{Binding ProgressPercent}" -->
-            <!--                      ShowProgressText="True"  VerticalAlignment="Center" -->
-            <!--                      HorizontalAlignment="Center" -->
-            <!--                      IsVisible="{Binding ProgressVisible}"/> -->
-            <!--          -->
-            <!--         <ContentControl x:Name="ContentControlLoader" -->
-            <!--                         IsVisible="{Binding ContentVisible}" -->
-            <!--                         Content="" /> -->
-            <!--     </Grid> -->
-            <!-- </SplitView.Content> -->
-            <!-- END SPLITVIEW CONTENT-->
         </SplitView>
     </Panel>
 </Window>

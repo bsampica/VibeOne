@@ -3,7 +3,7 @@ using System.Reactive;
 using ReactiveUI;
 using Splat;
 
-namespace VibeNine.ViewModels;
+namespace VibeOne.ViewModels;
 
 public class TankDetailsViewModel : PageViewModelBase
 {

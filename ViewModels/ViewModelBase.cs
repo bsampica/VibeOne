@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using Splat;
 
-namespace VibeNine.ViewModels;
+namespace VibeOne.ViewModels;
 
 public abstract class ViewModelBase : ReactiveObject, IRoutableViewModel
 {
