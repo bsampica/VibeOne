@@ -1,18 +1,10 @@
 using System;
 using ReactiveUI;
+using Splat;
 
 namespace VibeNine.ViewModels;
 
 public class TankDetailsViewModel : PageViewModelBase
 {
-    
-    public override string? UrlPathSegment { get; }
-    public override IScreen HostScreen { get; }
-    
-    public TankDetailsViewModel()
-    {
-     
-    }
-
-   
+    public override string? UrlPathSegment { get => "TankDetailsView"; }
 }
