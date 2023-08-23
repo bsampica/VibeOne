@@ -16,6 +16,7 @@ public class MainWindowViewModel : ViewModelBase, IScreen
     {
         Router = new RoutingState();
         Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+        Locator.CurrentMutable.Register(() =>  Router);
 
         NavigateToOperations = ReactiveCommand.CreateFromObservable(() =>
             Router.Navigate.Execute(new OperationsViewModel()));
