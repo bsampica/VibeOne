@@ -12,16 +12,21 @@
         <viewModels:TankDetailsViewModel />
     </Design.DataContext>
     
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center" >
-        <Button  Command="{Binding NavigateBackwardsFromTankDetails}">
-            <Button.Content>
-                <avalonia:MaterialIcon
-                    Kind="Backburger"
-                    Width="30"
-                    Height="30" />
-            </Button.Content>
-        </Button>
-        <TextBlock Text="Welcome to the tank details"></TextBlock>
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Button  Command="{Binding NavigateBackwardsFromTankDetails}">
+                <Button.Content>
+                    <avalonia:MaterialIcon
+                        Kind="ArrowBack" 
+                        Width="30"
+                        Height="30" />
+                </Button.Content>
+            </Button>
+            <TextBlock VerticalAlignment="Center" Text=" Return" />
+        </StackPanel>
+       
+        
     </StackPanel>
+    
+    
 </UserControl>
