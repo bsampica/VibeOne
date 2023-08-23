@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              x:DataType="viewModels:TankDetailsViewModel"
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
              x:Class="VibeOne.Views.TankDetailsView">
@@ -12,18 +13,18 @@
         <viewModels:TankDetailsViewModel />
     </Design.DataContext>
 
-    <StackPanel Orientation="Vertical">
+    <Panel>
         <Grid ColumnDefinitions="Auto, *">
             <Button
-                Width="65"
-                Height="40"
+                Width="50"
+                Height="50"
                 Command="{Binding NavigateBackwardsFromTankDetails}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <avalonia:MaterialIcon
                             Kind="ArrowBack"
-                            Width="22"
-                            Height="50" />
+                            Width="25"
+                            Height="25" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -36,10 +37,14 @@
                        FontWeight="Black"
                        Text="Details" />
         </Grid>
-        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
-            
-        </StackPanel>
-    </StackPanel>
+
+        <lvc:PieChart Series="{Binding Series}"
+                      InitialRotation="-90"
+                      MinValue="-10"
+                      Total="100"
+                      MaxAngle="270"  />
+
+    </Panel>
 
 
 </UserControl>
