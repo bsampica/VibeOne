@@ -9,7 +9,7 @@ namespace VibeNine;
 
 public class ViewLocator : IViewLocator
 {
-    public IViewFor ResolveView<T>(T viewModel, string contract = null)
+    public IViewFor ResolveView<T>(T? viewModel, string? contract = null)
     {
         if (viewModel is HomePageViewModel)
             return new HomePageView() { ViewModel = viewModel as HomePageViewModel };

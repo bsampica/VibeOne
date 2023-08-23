@@ -8,7 +8,6 @@ namespace VibeNine.ViewModels;
 public class MainWindowViewModel : ViewModelBase, IScreen
 {
     public override string UrlPathSegment { get => "MainWindow"; }
-    public override IScreen HostScreen { get; } = null!;
     public RoutingState Router { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateToOperations { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateToHomeScreen { get; }
@@ -17,23 +16,11 @@ public class MainWindowViewModel : ViewModelBase, IScreen
     {
         Router = new RoutingState();
         Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
-      
+
         NavigateToOperations = ReactiveCommand.CreateFromObservable(() =>
-            Router.Navigate.Execute(ExecuteNavOperation()));
+            Router.Navigate.Execute(new OperationsViewModel()));
 
         NavigateToHomeScreen = ReactiveCommand.CreateFromObservable(() =>
-            Router.Navigate.Execute(ExecuteNavHomepage()));
-    }
-
-    private IRoutableViewModel ExecuteNavOperation()
-    {
-        Console.WriteLine("Executing the Operations Link");
-        return new OperationsViewModel();
-    }
-
-    private IRoutableViewModel ExecuteNavHomepage()
-    {
-        Console.WriteLine("Executing the Homepage Link");
-        return new HomePageViewModel();
+            Router.Navigate.Execute(new HomePageViewModel()));
     }
 }
