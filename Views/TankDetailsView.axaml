@@ -17,8 +17,7 @@
         <Grid ColumnDefinitions="Auto, *">
             <Button
                 Width="50"
-                Height="50"
-                Command="{Binding NavigateBackwardsFromTankDetails}">
+                Height="50">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                         <avalonia:MaterialIcon
@@ -38,10 +37,10 @@
                        Text="Details" />
         </Grid>
 
-        <lvc:PieChart Series="{Binding Series}"
+        <lvc:PieChart 
                       InitialRotation="-90"
                       MinValue="-10"
-                      Total="100"
+                      MaxValue="100"
                       MaxAngle="270"  />
 
     </Panel>

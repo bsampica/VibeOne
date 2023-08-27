@@ -1,20 +1,28 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Media;
 using ReactiveUI;
 using VibeOne.ViewModels;
 using VibeOne.Views;
 
 namespace VibeOne;
 
-public class ViewLocator : IViewLocator
+public class ViewLocator : IDataTemplate
 {
-    public IViewFor ResolveView<T>(T? viewModel, string? contract = null)
+    public Control? Build(object? data)
     {
-        if (viewModel is HomePageViewModel)
-            return new HomePageView() { ViewModel = viewModel as HomePageViewModel };
-        if (viewModel is OperationsViewModel)
-            return new OperationsView () { ViewModel = viewModel as OperationsViewModel };
-        throw new Exception($"Could not find the view for view model {typeof(T).Name}.");
+        if (data is null) return new TextBlock { Text = "Data was null" };
+        var name = data.GetType().FullName!.Replace("ViewModel", "View");
+        var type = Type.GetType(name);
+        
+        return (type != null)
+            ? (Control)Activator.CreateInstance(type)!
+            : new TextBlock() { Text = "View was not found: " + name };
+    }
+
+    public bool Match(object? data)
+    {
+        return data is ViewModelBase;
     }
 }

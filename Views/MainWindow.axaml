@@ -37,8 +37,7 @@
                 <Panel>
                     <!-- NAVIGATION PANE OF SPLITVIEW -->
                     <StackPanel Orientation="Vertical" VerticalAlignment="Top">
-                        <Button Width="200" Background="Transparent"
-                                Command="{Binding NavigateToHomeScreen}">
+                        <Button Width="200" Background="Transparent" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <avalonia:MaterialIcon Kind="Gauge"
@@ -50,8 +49,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Width="200" Background="Transparent"
-                                Command="{Binding NavigateToOperations}">
+                        <Button Width="200" Background="Transparent" >
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <avalonia:MaterialIcon Kind="Apps"
@@ -85,9 +83,9 @@
                 <!-- END NAV PANE -->
             </SplitView.Pane>
             <!-- SPLITVIEW CONTENT AREA -->
-            <reactiveUi:RoutedViewHost
-                x:Name="RoutedViewHost" Router="{Binding Router}">
-            </reactiveUi:RoutedViewHost>
+            <!-- <reactiveUi:RoutedViewHost -->
+            <!--     x:Name="RoutedViewHost" Router="{Binding Router}"> -->
+            <!-- </reactiveUi:RoutedViewHost> -->
         </SplitView>
     </Panel>
 </Window>

@@ -2,7 +2,6 @@ using ReactiveUI;
 
 namespace VibeOne.ViewModels;
 
-public class OperationsViewModel : PageViewModelBase
+public class OperationsViewModel : ViewModelBase
 {
-    public override string? UrlPathSegment { get => "OperationsView"; }
 }
