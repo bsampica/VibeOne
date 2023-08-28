@@ -1,10 +1,10 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using VibeOne.ViewModels;
 
-namespace VibeNine.Views;
 
-public partial class TankDetailsView : UserControl
+namespace VibeOne.Views;
+
+public partial class TankDetailsView : ReactiveUserControl<TankDetailsViewModel>
 {
     public TankDetailsView()
     {

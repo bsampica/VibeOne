@@ -1,4 +1,4 @@
-namespace VibeNine.Models;
+namespace VibeOne.Models;
 
 public class TankModel
 {

@@ -2,17 +2,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:viewModels="clr-namespace:VibeNine.ViewModels"
-             x:DataType="viewModels:TankDetailsViewModel"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="VibeNine.Views.TankDetailsView">
+             xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
+             x:Class="VibeOne.Views.TankDetailsView"
+             x:DataType="viewModels:TankDetailsViewModel">
 
-    <Design.DataContext>
-        <viewModels:TankDetailsViewModel />
-    </Design.DataContext>
-    
-    <StackPanel HorizontalAlignment="Center"
-                VerticalAlignment="Center" >
-        <TextBlock Text="Welcome to the tank details"></TextBlock>
-    </StackPanel>
+
+    <Grid ColumnDefinitions="Auto, *"
+          RowDefinitions="Auto, Auto">
+        <Button Command="{Binding NavigateBack}"
+                Height="50"
+                Width="50"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+            <Button.Content>
+                <avalonia:MaterialIcon Kind="ArrowBack"></avalonia:MaterialIcon>
+            </Button.Content>
+        </Button>
+        <TextBlock Text="Tank Details" Grid.Row="0" Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="15" FontWeight="Black" />
+    </Grid>
 </UserControl>

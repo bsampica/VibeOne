@@ -1,13 +1,25 @@
-using System;
+using System.Reactive;
 using System.Windows.Input;
 using ReactiveUI;
 using Splat;
 
+namespace VibeOne.ViewModels;
 
-namespace VibeNine.ViewModels;
-
-public class HomePageViewModel : PageViewModelBase
+public class HomePageViewModel : ViewModelBase, IRoutableViewModel
 {
-    public sealed override string? UrlPathSegment { get => "HomePageView"; }
-   
+    public string? UrlPathSegment { get; } = "/home";
+    public IScreen HostScreen { get; }
+
+    private RoutingState Router { get; }
+
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateTankDetails { get; }
+
+    public HomePageViewModel(IScreen screen, RoutingState router)
+    {
+        HostScreen = screen;
+        Router = router;
+
+        NavigateTankDetails = ReactiveCommand.CreateFromObservable(() =>
+            Router.Navigate.Execute(new TankDetailsViewModel(HostScreen)));
+    }
 }

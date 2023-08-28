@@ -1,20 +1,24 @@
 using System;
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Avalonia.Media;
 using ReactiveUI;
-using VibeNine.ViewModels;
-using VibeNine.Views;
+using VibeOne.ViewModels;
+using VibeOne.Views;
 
-namespace VibeNine;
+namespace VibeOne;
 
 public class ViewLocator : IViewLocator
 {
-    public IViewFor ResolveView<T>(T? viewModel, string? contract = null)
+    public IViewFor? ResolveView<T>(T? viewModel, string? contract = null)
     {
-        if (viewModel is HomePageViewModel)
-            return new HomePageView() { ViewModel = viewModel as HomePageViewModel };
-        if (viewModel is OperationsViewModel)
-            return new OperationsView () { ViewModel = viewModel as OperationsViewModel };
-        throw new Exception($"Could not find the view for view model {typeof(T).Name}.");
+        return viewModel switch
+        {
+            HomePageViewModel context => new HomePageView() { DataContext = context },
+            OperationsViewModel context => new OperationsView() { DataContext = context },
+            TankDetailsViewModel context => new TankDetailsView() { DataContext = context },
+            _ => throw new ArgumentOutOfRangeException(nameof(viewModel)),
+        };
     }
 }

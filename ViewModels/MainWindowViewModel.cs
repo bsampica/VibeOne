@@ -1,26 +1,34 @@
 ﻿using System.Reactive;
-using System.Reflection;
+using System.Windows.Input;
+using Avalonia;
+using Avalonia.Animation;
+using Avalonia.Controls;
+using DynamicData;
 using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using Splat;
+using VibeOne.Views;
 
-namespace VibeNine.ViewModels;
+namespace VibeOne.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase, IScreen
 {
-    public override string UrlPathSegment { get => "MainWindow"; }
-    public RoutingState Router { get; }
-    public ReactiveCommand<Unit, IRoutableViewModel> NavigateToOperations { get; }
-    public ReactiveCommand<Unit, IRoutableViewModel> NavigateToHomeScreen { get; }
+    public RoutingState Router { get; } = Locator.Current.GetService<RoutingState>()!;
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateHome { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateOps { get; }
 
     public MainWindowViewModel()
     {
-        Router = new RoutingState();
-        Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+        Console.WriteLine("Main Window View Model Constructor()!");
+        // NAVIGATE to the default page when the app opens.
+        Router.Navigate.Execute(new HomePageViewModel(this, Router));
 
-        NavigateToOperations = ReactiveCommand.CreateFromObservable(() =>
-            Router.Navigate.Execute(new OperationsViewModel()));
+        NavigateHome =
+            ReactiveCommand.CreateFromObservable(() =>
+                Router.Navigate.Execute(new HomePageViewModel(this, Router)));
 
-        NavigateToHomeScreen = ReactiveCommand.CreateFromObservable(() =>
-            Router.Navigate.Execute(new HomePageViewModel()));
+        NavigateOps =
+            ReactiveCommand.CreateFromObservable(() =>
+                Router.Navigate.Execute(new OperationsViewModel(this)));
     }
 }

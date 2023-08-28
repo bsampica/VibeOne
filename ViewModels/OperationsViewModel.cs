@@ -1,8 +1,11 @@
 using ReactiveUI;
+namespace VibeOne.ViewModels;
 
-namespace VibeNine.ViewModels;
-
-public class OperationsViewModel : PageViewModelBase
+public class OperationsViewModel : ViewModelBase, IRoutableViewModel
 {
-    public override string? UrlPathSegment { get => "OperationsView"; }
+    public string? UrlPathSegment { get; } = "/operations";
+    public IScreen HostScreen { get; }
+
+    public OperationsViewModel(IScreen screen) => HostScreen = screen;
+
 }

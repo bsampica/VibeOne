@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="App.axaml" value="VibeOne.csproj" />
+        <entry key="Views/ApplicationWindow.axaml" value="VibeOne.csproj" />
+        <entry key="Views/HomePageView.axaml" value="VibeOne.csproj" />
+        <entry key="Views/MainWindow.axaml" value="VibeOne.csproj" />
+        <entry key="Views/NewWindow.axaml" value="VibeOne.csproj" />
+        <entry key="Views/OperationsView.axaml" value="VibeOne.csproj" />
+        <entry key="Views/TankDetailsView.axaml" value="VibeOne.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
