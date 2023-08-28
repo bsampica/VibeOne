@@ -7,6 +7,7 @@
         <entry key="Views/ApplicationWindow.axaml" value="VibeOne.csproj" />
         <entry key="Views/HomePageView.axaml" value="VibeOne.csproj" />
         <entry key="Views/MainWindow.axaml" value="VibeOne.csproj" />
+        <entry key="Views/NewWindow.axaml" value="VibeOne.csproj" />
         <entry key="Views/OperationsView.axaml" value="VibeOne.csproj" />
         <entry key="Views/TankDetailsView.axaml" value="VibeOne.csproj" />
       </map>

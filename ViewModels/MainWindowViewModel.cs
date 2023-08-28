@@ -11,43 +11,24 @@ using VibeOne.Views;
 
 namespace VibeOne.ViewModels;
 
-public class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel : ViewModelBase, IScreen
 {
-    [Reactive] public ReactiveObject CurrentPage { get; set; }
-
-    public ICommand ChangeModelCommand { get; set; }
+    public RoutingState Router { get; } = new RoutingState();
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateHome { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> NavigateOps { get; }
 
     public MainWindowViewModel()
     {
-        ChangeModelCommand = ReactiveCommand.Create(ChangeModel);
-        CurrentPage = new HomePageViewModel();
-    }
+        Console.WriteLine("Main Window View Model Constructor()!");
+        // NAVIGATE to the default page when the app opens.
+        Router.Navigate.Execute(new HomePageViewModel(this));
 
-    private void ChangeModel()
-    {
-        Console.WriteLine($"{CurrentPage.ToString()}");
-        switch (CurrentPage)
-        {
-            case OperationsViewModel:
-                CurrentPage = Locator.Current.GetService<TankDetailsViewModel>();
-                Console.WriteLine("case Operations");
-                break;
-            case HomePageViewModel:
-                CurrentPage = Locator.Current.GetService<OperationsViewModel>();
-                Console.WriteLine("case HomePage");
-                break;
-            case TankDetailsViewModel:
-                CurrentPage = Locator.Current.GetService<HomePageViewModel>();
-                Console.WriteLine("case tank details");
-                break;
-            case null:
-                Console.WriteLine("case null");
-                CurrentPage = new HomePageViewModel();
-                break;
-            default:
-                CurrentPage = Locator.Current.GetService<HomePageViewModel>();
-                Console.WriteLine("case default");
-                break;
-        }
+        NavigateHome =
+            ReactiveCommand.CreateFromObservable(() =>
+                Router.Navigate.Execute(new HomePageViewModel(this)));
+
+        NavigateOps =
+            ReactiveCommand.CreateFromObservable(() =>
+                Router.Navigate.Execute(new OperationsViewModel(this)));
     }
 }

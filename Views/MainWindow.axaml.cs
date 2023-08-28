@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using Material.Icons;
 using Material.Icons.Avalonia;
@@ -15,13 +16,6 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     public MainWindow()
     {
         InitializeComponent();
-        ViewModel = new MainWindowViewModel();
-        this.WhenActivated(d =>
-        {
-            // this.OneWayBind(ViewModel,
-            //     x => x.Router,
-            //     x => x.RoutedViewHost.Router);
-        });
     }
 
     private void ToggleMenu_OnClick(object? sender, RoutedEventArgs e)

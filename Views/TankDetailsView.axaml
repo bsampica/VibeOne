@@ -5,13 +5,8 @@
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
-             x:DataType="viewModels:TankDetailsViewModel"
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
              x:Class="VibeOne.Views.TankDetailsView">
-
-    <Design.DataContext>
-        <viewModels:TankDetailsViewModel />
-    </Design.DataContext>
 
     <Panel>
         <Grid ColumnDefinitions="Auto, *">

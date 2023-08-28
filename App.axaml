@@ -12,14 +12,14 @@
              RequestedThemeVariant="Dark">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
-    <Application.DataTemplates>
-        <local:ViewLocator />
-    </Application.DataTemplates>
+    <!-- <Application.DataTemplates> -->
+    <!--     <local:ViewLocator /> -->
+    <!-- </Application.DataTemplates> -->
     
     
     <Application.Styles>
         <FluentTheme />
-        <themes:MaterialTheme PrimaryColor="Blue" SecondaryColor="DeepOrange" />
+        <!-- <themes:MaterialTheme PrimaryColor="Blue" SecondaryColor="DeepOrange" /> -->
         <materialIcons:MaterialIconStyles />
         <dialog:DialogHostStyles />
     </Application.Styles>
