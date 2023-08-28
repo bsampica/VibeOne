@@ -6,6 +6,7 @@
         xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
         xmlns:rx="http://reactiveui.net"
         xmlns:local="clr-namespace:VibeOne"
+        xmlns:reactiveUi="clr-namespace:ReactiveUI;assembly=ReactiveUI"
         mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
         x:Class="VibeOne.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -83,20 +84,15 @@
                 <!-- END NAV PANE -->
             </SplitView.Pane>
             <!-- SPLITVIEW CONTENT AREA -->
-            <TransitioningContentControl>
-                <TransitioningContentControl.Content>
-                    
-                </TransitioningContentControl.Content>
-            </TransitioningContentControl>
-            <!-- <rx:RoutedViewHost -->
-            <!--     x:Name="RoutedViewHost" Router="{Binding Router}"> -->
-            <!--     <rx:RoutedViewHost.DefaultContent> -->
-            <!--         <TextBlock Text="Default Content"></TextBlock> -->
-            <!--     </rx:RoutedViewHost.DefaultContent> -->
-            <!--     <rx:RoutedViewHost.ViewLocator> -->
-            <!--         <local:ViewLocator /> -->
-            <!--     </rx:RoutedViewHost.ViewLocator> -->
-            <!-- </rx:RoutedViewHost> -->
+            <rx:RoutedViewHost
+                x:Name="RoutedViewHost" Router="{Binding Router}">
+                <rx:RoutedViewHost.DefaultContent>
+                    <TextBlock Text="Default Content"></TextBlock>
+                </rx:RoutedViewHost.DefaultContent>
+                <rx:RoutedViewHost.ViewLocator>
+                    <local:ViewLocator />
+                </rx:RoutedViewHost.ViewLocator>
+            </rx:RoutedViewHost>
         </SplitView>
     </Panel>
 </Window>
