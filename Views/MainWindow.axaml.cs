@@ -23,12 +23,12 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         this.SplitViewMenu.IsPaneOpen = !this.SplitViewMenu.IsPaneOpen;
         if (this.SplitViewMenu.IsPaneOpen)
         {
-            if ((sender as Button)?.Content is MaterialIcon currentButtonContent)
+            if (sender is Button { Content: MaterialIcon currentButtonContent })
                 currentButtonContent.Kind = MaterialIconKind.HamburgerOpen;
         }
         else
         {
-            if ((sender as Button)?.Content is MaterialIcon currentButtonContent)
+            if (sender is Button { Content: MaterialIcon currentButtonContent })
                 currentButtonContent.Kind = MaterialIconKind.HamburgerClose;
         }
     }

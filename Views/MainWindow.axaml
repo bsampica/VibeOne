@@ -50,7 +50,7 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
-                        <Button Width="200" Background="Transparent" >
+                        <Button Width="200" Background="Transparent" Command="{Binding NavigateOps}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <avalonia:MaterialIcon Kind="Apps"
@@ -83,15 +83,20 @@
                 <!-- END NAV PANE -->
             </SplitView.Pane>
             <!-- SPLITVIEW CONTENT AREA -->
-            <rx:RoutedViewHost
-                x:Name="RoutedViewHost" Router="{Binding Router}">
-                <rx:RoutedViewHost.DefaultContent>
-                    <TextBlock Text="Default Content"></TextBlock>
-                </rx:RoutedViewHost.DefaultContent>
-                <rx:RoutedViewHost.ViewLocator>
-                    <local:ViewLocator />
-                </rx:RoutedViewHost.ViewLocator>
-            </rx:RoutedViewHost>
+            <TransitioningContentControl>
+                <TransitioningContentControl.Content>
+                    
+                </TransitioningContentControl.Content>
+            </TransitioningContentControl>
+            <!-- <rx:RoutedViewHost -->
+            <!--     x:Name="RoutedViewHost" Router="{Binding Router}"> -->
+            <!--     <rx:RoutedViewHost.DefaultContent> -->
+            <!--         <TextBlock Text="Default Content"></TextBlock> -->
+            <!--     </rx:RoutedViewHost.DefaultContent> -->
+            <!--     <rx:RoutedViewHost.ViewLocator> -->
+            <!--         <local:ViewLocator /> -->
+            <!--     </rx:RoutedViewHost.ViewLocator> -->
+            <!-- </rx:RoutedViewHost> -->
         </SplitView>
     </Panel>
 </Window>

@@ -13,7 +13,7 @@ namespace VibeOne.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase, IScreen
 {
-    public RoutingState Router { get; } = new RoutingState();
+    public RoutingState Router { get; } = Locator.Current.GetService<RoutingState>()!;
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateHome { get; }
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateOps { get; }
 
@@ -21,11 +21,11 @@ public class MainWindowViewModel : ViewModelBase, IScreen
     {
         Console.WriteLine("Main Window View Model Constructor()!");
         // NAVIGATE to the default page when the app opens.
-        Router.Navigate.Execute(new HomePageViewModel(this));
+        Router.Navigate.Execute(new HomePageViewModel(this, Router));
 
         NavigateHome =
             ReactiveCommand.CreateFromObservable(() =>
-                Router.Navigate.Execute(new HomePageViewModel(this)));
+                Router.Navigate.Execute(new HomePageViewModel(this, Router)));
 
         NavigateOps =
             ReactiveCommand.CreateFromObservable(() =>

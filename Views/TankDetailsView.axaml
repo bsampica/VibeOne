@@ -6,39 +6,24 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
-             x:Class="VibeOne.Views.TankDetailsView">
+             x:Class="VibeOne.Views.TankDetailsView"
+             x:DataType="viewModels:TankDetailsViewModel">
 
-    <Panel>
-        <Grid ColumnDefinitions="Auto, *">
-            <Button
+
+    <Grid ColumnDefinitions="Auto, *"
+          RowDefinitions="Auto, Auto">
+        <Button Command="{Binding NavigateBack}"
+                Height="50"
                 Width="50"
-                Height="50">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                        <avalonia:MaterialIcon
-                            Kind="ArrowBack"
-                            Width="25"
-                            Height="25" />
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <TextBlock Grid.Column="1" Margin="-65,0,0,0"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Foreground="Gainsboro"
-                       FontSize="20"
-                       FontFamily="Verdana"
-                       FontWeight="Black"
-                       Text="Details" />
-        </Grid>
-
-        <lvc:PieChart 
-                      InitialRotation="-90"
-                      MinValue="-10"
-                      MaxValue="100"
-                      MaxAngle="270"  />
-
-    </Panel>
-
-
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+            <Button.Content>
+                <avalonia:MaterialIcon Kind="ArrowBack"></avalonia:MaterialIcon>
+            </Button.Content>
+        </Button>
+        <TextBlock Text="Tank Details" Grid.Row="0" Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="15" FontWeight="Black" />
+    </Grid>
 </UserControl>

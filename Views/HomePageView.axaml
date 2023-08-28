@@ -5,14 +5,15 @@
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="740" d:DesignHeight="400"
-             x:Class="VibeOne.Views.HomePageView">
+             x:Class="VibeOne.Views.HomePageView"
+             x:DataType="viewModels:HomePageViewModel">
 
     <Design.DataContext>
         <viewModels:HomePageViewModel />
     </Design.DataContext>
 
     <WrapPanel Orientation="Horizontal">
-        <Button Background="Transparent">
+        <Button Background="Transparent" Command="{Binding NavigateTankDetails }">
             <Button.Padding>0</Button.Padding>
             <Button.Content>
                 <Panel Width="150" HorizontalAlignment="Left"
