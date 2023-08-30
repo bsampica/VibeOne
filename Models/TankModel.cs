@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace VibeOne.Models;
 
 public class TankModel
@@ -5,10 +7,10 @@ public class TankModel
     public int Id { get; init; }
     public string? Name { get; init; }
     public double Temperature { get; init; }
-    public bool SomethingHappening { get; init; }
+    public IEnumerable<double>? TemperatureHistory { get; init; }
 
-    public override string ToString()
+    public TankModel()
     {
-        return $"{Name}:{Id}";
+        
     }
 }

@@ -4,141 +4,156 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:models="clr-namespace:VibeOne.Models"
              mc:Ignorable="d" d:DesignWidth="740" d:DesignHeight="400"
              x:Class="VibeOne.Views.HomePageView"
-             x:DataType="viewModels:HomePageViewModel">
+             x:DataType="viewModels:HomePageViewModel"
+             DataContext="viewModels:HomePageViewModel">
 
     <Design.DataContext>
         <viewModels:HomePageViewModel />
     </Design.DataContext>
 
-    <WrapPanel Orientation="Horizontal">
-        <Button Background="Transparent" Command="{Binding NavigateTankDetails }">
-            <Button.Padding>0</Button.Padding>
-            <Button.Content>
-                <Panel Width="150" HorizontalAlignment="Left"
-                       VerticalAlignment="Top" Margin="10">
-                    <Border Width="150" CornerRadius="15">
-                        <Border.Background>
-                            <LinearGradientBrush>
-                                <GradientStops>
-                                    <GradientStop Color="Aqua" Offset="0"></GradientStop>
-                                    <GradientStop Color="CornflowerBlue" Offset="1"></GradientStop>
-                                </GradientStops>
-                            </LinearGradientBrush>
-                        </Border.Background>
+    <ItemsRepeater x:Name="Repeater" ItemsSource="{Binding TankModels}">
+        <ItemsRepeater.Layout>
+            <WrapLayout Orientation="Horizontal"></WrapLayout>
+        </ItemsRepeater.Layout>
+        <ItemsRepeater.ItemTemplate>
+            <DataTemplate DataType="models:TankModel">
+                <Button Background="Transparent"
+                        Padding="0"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Margin="15">
+                    <Button.Content>
+                        <Panel Width="150" HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Margin="2">
+                            <Border Width="150" CornerRadius="5">
+                                <Border.Background>
+                                    <LinearGradientBrush>
+                                        <GradientStops>
+                                            <GradientStop Color="Aqua" Offset="0"></GradientStop>
+                                            <GradientStop Color="CornflowerBlue" Offset="1"></GradientStop>
+                                        </GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.Background>
 
-                        <StackPanel Orientation="Vertical">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="55" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="55"></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Ellipse Grid.Column="0"
-                                         Width="40"
-                                         Height="40"
-                                         Fill="White"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Top"
-                                         Margin="5">
-                                </Ellipse>
-                                <avalonia:MaterialIcon Grid.Column="0"
-                                                       HorizontalAlignment="Left"
-                                                       VerticalAlignment="Top"
-                                                       Foreground="SlateGray"
-                                                       Kind="FlaskOutline"
-                                                       Width="30"
-                                                       Height="30"
-                                                       Margin="9">
-                                    <avalonia:MaterialIcon.RenderTransform>
-                                        <RotateTransform Angle="180" />
-                                    </avalonia:MaterialIcon.RenderTransform>
-                                </avalonia:MaterialIcon>
-                                <TextBlock Grid.Column="1" Text="10°C"
-                                           HorizontalAlignment="Right"
-                                           Margin="0,0,10,0"
-                                           VerticalAlignment="Center"
-                                           FontSize="24"
-                                           FontWeight="Black" />
-                            </Grid>
-                            <StackPanel Orientation="Vertical" Margin="10">
-                                <TextBlock Text="Started: 18:50" FontSize="11"></TextBlock>
-                                <TextBlock Text="Cooling Cycle"
-                                           FontSize="18" FontWeight="Black">
-                                </TextBlock>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </Panel>
-            </Button.Content>
-        </Button>
+                                <StackPanel Orientation="Vertical">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="55" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="55"></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Ellipse Grid.Column="0"
+                                                 Width="40"
+                                                 Height="40"
+                                                 Fill="White"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Top"
+                                                 Margin="5">
+                                        </Ellipse>
+                                        <avalonia:MaterialIcon Grid.Column="0"
+                                                               HorizontalAlignment="Left"
+                                                               VerticalAlignment="Top"
+                                                               Foreground="SlateGray"
+                                                               Kind="FlaskOutline"
+                                                               Width="30"
+                                                               Height="30"
+                                                               Margin="9">
+                                            <avalonia:MaterialIcon.RenderTransform>
+                                                <RotateTransform Angle="180" />
+                                            </avalonia:MaterialIcon.RenderTransform>
+                                        </avalonia:MaterialIcon>
+                                        <TextBlock Grid.Column="1" Text="10°C"
+                                                   HorizontalAlignment="Right"
+                                                   Margin="0,0,10,0"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="24"
+                                                   FontWeight="Black" />
+                                    </Grid>
+                                    <StackPanel Orientation="Vertical" Margin="10">
+                                        <TextBlock Text="{Binding RelativeSource={RelativeSource Mode= DataContext } }"
+                                                   FontSize="11">
+                                        </TextBlock>
+                                        <TextBlock Text="Cooling Cycle"
+                                                   FontSize="18" FontWeight="Black">
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                        </Panel>
+                    </Button.Content>
+                </Button>
+            </DataTemplate>
+        </ItemsRepeater.ItemTemplate>
+    </ItemsRepeater>
 
-        <!-- PANEL 2-->
-        <Button Background="Transparent">
-            <Button.Padding>0</Button.Padding>
-            <Panel Width="150" HorizontalAlignment="Left"
-                   VerticalAlignment="Top" Margin="10">
-                <Border Width="150" CornerRadius="15">
-                    <Border.Background>
-                        <LinearGradientBrush>
-                            <GradientStops>
-                                <GradientStop Color="RosyBrown" Offset="0"></GradientStop>
-                                <GradientStop Color="SaddleBrown" Offset="1"></GradientStop>
-                            </GradientStops>
-                        </LinearGradientBrush>
-                    </Border.Background>
+    <!-- PANEL 2-->
+    <!-- <Button Background="Transparent"> -->
+    <!--     <Button.Padding>0</Button.Padding> -->
+    <!--     <Panel Width="150" HorizontalAlignment="Left" -->
+    <!--            VerticalAlignment="Top" Margin="10"> -->
+    <!--         <Border Width="150" CornerRadius="15"> -->
+    <!--             <Border.Background> -->
+    <!--                 <LinearGradientBrush> -->
+    <!--                     <GradientStops> -->
+    <!--                         <GradientStop Color="RosyBrown" Offset="0"></GradientStop> -->
+    <!--                         <GradientStop Color="SaddleBrown" Offset="1"></GradientStop> -->
+    <!--                     </GradientStops> -->
+    <!--                 </LinearGradientBrush> -->
+    <!--             </Border.Background> -->
+    <!-- -->
+    <!--             <StackPanel Orientation="Vertical"> -->
+    <!--                 <Grid> -->
+    <!--                     <Grid.ColumnDefinitions> -->
+    <!--                         <ColumnDefinition Width="55" /> -->
+    <!--                         <ColumnDefinition Width="*" /> -->
+    <!--                     </Grid.ColumnDefinitions> -->
+    <!--                     <Grid.RowDefinitions> -->
+    <!--                         <RowDefinition Height="55"></RowDefinition> -->
+    <!--                     </Grid.RowDefinitions> -->
+    <!--                     <Ellipse Grid.Column="0" -->
+    <!--                              Width="40" -->
+    <!--                              Height="40" -->
+    <!--                              Fill="White" -->
+    <!--                              HorizontalAlignment="Left" -->
+    <!--                              VerticalAlignment="Top" -->
+    <!--                              Margin="5"> -->
+    <!--                     </Ellipse> -->
+    <!--                     <avalonia:MaterialIcon Grid.Column="0" -->
+    <!--                                            HorizontalAlignment="Left" -->
+    <!--                                            VerticalAlignment="Top" -->
+    <!--                                            Foreground="SlateGray" -->
+    <!--                                            Kind="FlaskOutline" -->
+    <!--                                            Width="30" -->
+    <!--                                            Height="30" -->
+    <!--                                            Margin="9"> -->
+    <!--                         <avalonia:MaterialIcon.RenderTransform> -->
+    <!--                             <RotateTransform Angle="180" /> -->
+    <!--                         </avalonia:MaterialIcon.RenderTransform> -->
+    <!--                     </avalonia:MaterialIcon> -->
+    <!--                     <TextBlock Grid.Column="1" Text="31°C" -->
+    <!--                                HorizontalAlignment="Right" -->
+    <!--                                Margin="0,0,10,0" -->
+    <!--                                VerticalAlignment="Center" -->
+    <!--                                FontSize="24" -->
+    <!--                                FontWeight="Black" /> -->
+    <!--                 </Grid> -->
+    <!--                 <StackPanel Orientation="Vertical" Margin="10"> -->
+    <!--                     <TextBlock Text="Idle" FontSize="11"></TextBlock> -->
+    <!--                     <TextBlock Text="Idle" -->
+    <!--                                FontSize="18" FontWeight="Black"> -->
+    <!--                     </TextBlock> -->
+    <!--                 </StackPanel> -->
+    <!--             </StackPanel> -->
+    <!--         </Border> -->
+    <!--     </Panel> -->
+    <!-- </Button> -->
+    <!-- END PANEL 2 -->
 
-                    <StackPanel Orientation="Vertical">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="55" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="55"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Ellipse Grid.Column="0"
-                                     Width="40"
-                                     Height="40"
-                                     Fill="White"
-                                     HorizontalAlignment="Left"
-                                     VerticalAlignment="Top"
-                                     Margin="5">
-                            </Ellipse>
-                            <avalonia:MaterialIcon Grid.Column="0"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Top"
-                                                   Foreground="SlateGray"
-                                                   Kind="FlaskOutline"
-                                                   Width="30"
-                                                   Height="30"
-                                                   Margin="9">
-                                <avalonia:MaterialIcon.RenderTransform>
-                                    <RotateTransform Angle="180" />
-                                </avalonia:MaterialIcon.RenderTransform>
-                            </avalonia:MaterialIcon>
-                            <TextBlock Grid.Column="1" Text="31°C"
-                                       HorizontalAlignment="Right"
-                                       Margin="0,0,10,0"
-                                       VerticalAlignment="Center"
-                                       FontSize="24"
-                                       FontWeight="Black" />
-                        </Grid>
-                        <StackPanel Orientation="Vertical" Margin="10">
-                            <TextBlock Text="Idle" FontSize="11"></TextBlock>
-                            <TextBlock Text="Idle"
-                                       FontSize="18" FontWeight="Black">
-                            </TextBlock>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </Panel>
-        </Button>
-        <!-- END PANEL 2 -->
-        <TextBlock x:Name="PathTextBlock" Foreground="White" />
-
-    </WrapPanel>
+    <!-- </WrapPanel> -->
 </UserControl>

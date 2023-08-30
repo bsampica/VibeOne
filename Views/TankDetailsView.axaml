@@ -11,7 +11,13 @@
 
 
     <Grid ColumnDefinitions="Auto, *"
-          RowDefinitions="Auto, Auto">
+          RowDefinitions="Auto, *">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="65%, 0%" EndPoint="50%,100%">
+                <GradientStop Color="CadetBlue" Offset="0"></GradientStop>
+                <GradientStop Color="DodgerBlue" Offset="1"></GradientStop>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Button Command="{Binding NavigateBack}"
                 Height="50"
                 Width="50"
@@ -21,9 +27,57 @@
                 <avalonia:MaterialIcon Kind="ArrowBack"></avalonia:MaterialIcon>
             </Button.Content>
         </Button>
-        <TextBlock Text="Tank Details" Grid.Row="0" Grid.Column="1"
+        <TextBlock Text="Tank Details"
+                   Grid.Row="0"
+                   Grid.Column="1"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
-                   FontSize="15" FontWeight="Black" />
+                   FontSize="15" FontWeight="Black"
+                   Margin="-50,0,0,0" /> <!-- NEGATIVE MARGIN FOR CENTERING -->
+        <!-- END OF HEADER AND BACK BUTTON -->
+        <Grid Background="Orange" Opacity=""
+              Grid.RowDefinitions="Auto, Auto, Auto, *"
+              Grid.ColumnDefinitions="Auto"
+              Grid.Column="0"
+              Grid.Row="1"
+              Grid.ColumnSpan="2">
+            <!-- INNER GRID CONTENT AREA -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <TextBlock Text="Value:  " HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"></TextBlock>
+                <Slider x:Name="SldValue" Value="{Binding Needle.Value, FallbackValue=0}" Minimum="0" Maximum="100"
+                        Width="200" HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                </Slider>
+                <TextBlock Text="{Binding #SldValue.Value}" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock Text="Rotation:  " HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontWeight="Black">
+                </TextBlock>
+                <Slider x:Name="SldRotation" Value="0" Minimum="-360" Maximum="360" Width="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                </Slider>
+                <TextBlock Text="{Binding #SldRotation.Value}" VerticalAlignment="Center"></TextBlock>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <TextBlock Text="Angle:  " HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"></TextBlock>
+                <Slider x:Name="SldAngle" Value="270" Minimum="0" Maximum="360" Width="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                </Slider>
+                <TextBlock Text="{Binding #SldAngle.Value}" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+            <lvc:PieChart
+                Grid.Row="3"
+                Series="{Binding Series}"
+                VisualElements="{Binding VisualElements}"
+                InitialRotation="{Binding #SldRotation.Value, Mode=OneWay, FallbackValue=0}"
+                MaxAngle="{Binding #SldAngle.Value, Mode=OneWay, FallbackValue=270}"
+                MinValue="0"
+                MaxValue="100" />
+        </Grid>
+
     </Grid>
 </UserControl>
