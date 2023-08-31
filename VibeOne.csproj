@@ -27,5 +27,6 @@
     <PackageReference Include="Material.Avalonia.Dialogs" Version="3.0.0-avalonia11-preview6.17-nightly" />
     <PackageReference Include="Material.Icons.Avalonia" Version="2.0.1" />
     <PackageReference Include="ReactiveUI.Fody" Version="19.4.1" />
+    <PackageReference Include="System.Device.Gpio" Version="3.0.0" />
   </ItemGroup>
 </Project>
