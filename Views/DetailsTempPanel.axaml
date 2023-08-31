@@ -20,12 +20,13 @@
                     HorizontalAlignment="Center"
                     Orientation="Horizontal">
             <avalonia:MaterialIcon Kind="Fan"
+                                   Margin="0,0,25,0"
                                    Width="50"
                                    Height="50"
                                    Opacity=".7"
                                    VerticalAlignment="Center" />
             <TextBlock VerticalAlignment="Center"
-                       Text="21"
+                       Text="{Binding SelectedTankModel.Temperature, FallbackValue=--, StringFormat=N1}"
                        FontSize="120" />
             <TextBlock Text="&#186;F"
                        FontSize="50"
@@ -68,13 +69,16 @@
                     <Setter Property="Opacity" Value=".5" />
                     <Setter Property="FontWeight" Value="Black" />
                 </Style>
+                <Style Selector="lvc|CartesianChart">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
             </Grid.Styles>
             <Border Grid.Column="0">
                 <Grid ColumnDefinitions="*"
                       RowDefinitions="Auto, Auto, *">
                     <TextBlock Text="TANK  |  1" />
                     <Panel Grid.Row="1">
-                        <TextBlock Grid.Row="1" Text="54" />
+                        <TextBlock Grid.Row="1" Text="{Binding Tank1Temperature, FallbackValue=--, StringFormat=N1}" />
                         <Border Background="Transparent">
                             <TextBlock Text="&#186; F" />
                         </Border>
@@ -83,17 +87,7 @@
                                         TooltipPosition="Hidden"
                                         HorizontalAlignment="Stretch"
                                         VerticalAlignment="Stretch"
-                                        Series="{Binding Series}">
-                        <lvc:CartesianChart.YAxes>
-                            <skiaSharpView:Axis>
-                                <skiaSharpView:Axis.Labeler>
-                                </skiaSharpView:Axis.Labeler>
-                                <skiaSharpView:Axis.LabelsRotation>
-                                    90
-                                </skiaSharpView:Axis.LabelsRotation>
-                            </skiaSharpView:Axis>
-                        </lvc:CartesianChart.YAxes>
-                    </lvc:CartesianChart>
+                                        Series="{Binding Series}" />
                 </Grid>
             </Border>
             <Border Grid.Column="1">
@@ -101,7 +95,7 @@
                       RowDefinitions="Auto, Auto, *">
                     <TextBlock Text="TANK  |  2" />
                     <Panel Grid.Row="1">
-                        <TextBlock Grid.Row="1" Text="73" />
+                        <TextBlock Grid.Row="1" Text="{Binding Tank2Temperature, FallbackValue=--, StringFormat=N1}" />
                         <Border Background="Transparent">
                             <TextBlock Text="&#186; F" />
                         </Border>
@@ -117,7 +111,7 @@
                       RowDefinitions="Auto, Auto, *">
                     <TextBlock Text="TANK  |  3" />
                     <Panel Grid.Row="1">
-                        <TextBlock Grid.Row="1" Text="81" />
+                        <TextBlock Grid.Row="1" Text="{Binding Tank3Temperature, FallbackValue=--, StringFormat=N1}" />
                         <Border Background="Transparent">
                             <TextBlock Text="&#186; F" />
                         </Border>

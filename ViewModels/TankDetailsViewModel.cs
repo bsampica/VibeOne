@@ -43,6 +43,9 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
     [Reactive] public List<ISeries> Series { get; set; }
 
+    [Reactive] public float Tank1Temperature { get; set; } = 0.00f;
+    [Reactive] public float Tank2Temperature { get; set; } = 0.00f;
+    [Reactive] public float Tank3Temperature { get; set; } = 0.00f;
 
     public TankDetailsViewModel(IScreen hostScreen)
     {
@@ -73,10 +76,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
         var columnSeries1 = new ColumnSeries<float>
         {
-            Values = valuesCopy,
-            Stroke = null,
-            Padding = 2,
-            MaxBarWidth = double.PositiveInfinity,
+            Values = valuesCopy, Stroke = null, Padding = 2, MaxBarWidth = double.PositiveInfinity,
         };
 
         columnSeries1.PointMeasured += OnPointMeasured;
