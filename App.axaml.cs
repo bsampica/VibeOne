@@ -7,6 +7,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using Splat;
+using VibeOne.Services;
 using VibeOne.ViewModels;
 using VibeOne.Views;
 
@@ -19,6 +20,7 @@ public partial class App : Application
     {
         AvaloniaXamlLoader.Load(this);
         Locator.CurrentMutable.RegisterLazySingleton(() => new RoutingState());
+        Locator.CurrentMutable.RegisterLazySingleton(() => new TankService());
     }
 
     public override void OnFrameworkInitializationCompleted()

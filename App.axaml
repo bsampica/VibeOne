@@ -1,5 +1,5 @@
 <!-- https://github.com/AvaloniaUtils/DialogHost.Avalonia DIALOG HOST CONTROLS HELPER-->
-<!-- https://github.com/AvaloniaCommunity/Material.Avalonia/tree/master MATERIAL AVALONIA THEME--> 
+<!-- https://github.com/AvaloniaCommunity/Material.Avalonia/tree/master MATERIAL AVALONIA THEME-->
 
 
 <Application xmlns="https://github.com/avaloniaui"
@@ -15,12 +15,13 @@
     <!-- <Application.DataTemplates> -->
     <!--     <local:ViewLocator /> -->
     <!-- </Application.DataTemplates> -->
-    
-    
+
+
     <Application.Styles>
-        <FluentTheme />
-        <!-- <themes:MaterialTheme PrimaryColor="Blue" SecondaryColor="DeepOrange" /> -->
+        <!-- <FluentTheme /> -->
+        <themes:MaterialTheme PrimaryColor="Blue" SecondaryColor="DeepOrange" />
         <materialIcons:MaterialIconStyles />
         <dialog:DialogHostStyles />
+
     </Application.Styles>
 </Application>
