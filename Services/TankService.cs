@@ -25,32 +25,23 @@ public class TankService
         {
             new TankModel()
             {
-                Name = "Tank 1",
-                Id = 1,
-                Temperature = 21.2,
-                TemperatureHistory = new[] { 90, 84, 71.2, 65.1, 40, 21.2 }
-            },
-            new TankModel()
-            {
-                Name = "Tank 2",
-                Id = 2,
-                Temperature = 21.2,
-                TemperatureHistory = new[] { 90, 84, 71.2, 65.1, 40, 21.2 }
-            },
-            new TankModel()
-            {
-                Name = "Tank 3",
-                Id = 3,
-                Temperature = 21.2,
-                TemperatureHistory = new[] { 90, 84, 71.2, 65.1, 40, 21.2 }
-            },
-            new TankModel()
-            {
-                Name = "Tank 4",
-                Id = 4,
-                Temperature = 21.2,
-                TemperatureHistory = new[] { 90, 84, 71.2, 65.1, 40, 21.2 }
-            },
+                Name = "Tank 1", Id = 1, Temperature = 21.2, TemperatureHistory = GetMockTemperatureHistory()
+            }
         };
+    }
+
+    private List<TemperatureHistory> GetMockTemperatureHistory()
+    {
+        var tempHistory = new List<TemperatureHistory>();
+        for (var i = 100; i >= 0; i--)
+        {
+            var tempReading = new TemperatureHistory()
+            {
+                Temperature = i, Time = new DateTime(2022, 11, 03, 07, 01, 22, 00) - TimeSpan.FromMinutes(i)
+            };
+            tempHistory.Add(tempReading);
+        }
+
+        return tempHistory;
     }
 }

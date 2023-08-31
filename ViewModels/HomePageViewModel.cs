@@ -21,8 +21,7 @@ public class HomePageViewModel : ViewModelBase, IRoutableViewModel
     [Reactive] public IEnumerable<TankModel> TankModels { get; set; }
     public ReactiveCommand<Unit, IRoutableViewModel> NavigateTankDetails { get; }
 
-    public HomePageViewModel() :
-        this(null, null)
+    public HomePageViewModel()
     {
     }
 

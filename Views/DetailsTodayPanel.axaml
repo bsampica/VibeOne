@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:VibeOne.Views"
+             xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
+             mc:Ignorable="d"
+             x:Class="VibeOne.Views.DetailsTodayPanel"
+             x:DataType="viewModels:TankDetailsViewModel"
+             d:DesignHeight="400">
+    <Grid Grid.Column="1"
+          ColumnDefinitions="*"
+          RowDefinitions="Auto, Auto, Auto, *">
+        <TextBlock Grid.Row="0" Text="TODAY"
+                   FontSize="20"
+                   FontWeight="Thin"
+                   Foreground="MediumSpringGreen" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="{Binding CurrentTime^, StringFormat=h:mm:ss, FallbackValue=8:10:22}" FontSize="65" />
+            <TextBlock
+                Text="{Binding CurrentTime^, StringFormat=tt, FallbackValue=PM}"
+                FontSize="65"
+                Foreground="White"
+                Opacity=".3"
+                FontWeight="Thin"
+                Margin="-8,0,0,0">
+            </TextBlock>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Text="HISTORY" />
+        <Border Grid.Row="2" BorderBrush="White" BorderThickness=".3" Height="2" Margin="0,15,0,0" />
+        
+        <Border Grid.Row="3" BorderBrush="White" 
+                Background="White" 
+                Opacity=".3" 
+                CornerRadius="15" 
+                Margin="0,20,0,0" />
+        <views:HistoryPanel Grid.Row="3"
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+        </views:HistoryPanel>
+    </Grid>
+</UserControl>

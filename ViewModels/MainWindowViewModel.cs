@@ -29,11 +29,11 @@ public class MainWindowViewModel : ViewModelBase, IScreen
 
 
         // NAVIGATE to the default page when the app opens.
-        Router.Navigate.Execute(new HomePageViewModel(this, Router));
+        Router.Navigate.Execute(new TankDetailsViewModel(this));
 
         NavigateHome =
             ReactiveCommand.CreateFromObservable(() =>
-                Router.Navigate.Execute(new HomePageViewModel(this, Router)));
+                Router.Navigate.Execute(new TankDetailsViewModel(this)));
 
         NavigateOps =
             ReactiveCommand.CreateFromObservable(() =>

@@ -19,8 +19,9 @@
             <WrapLayout Orientation="Horizontal"></WrapLayout>
         </ItemsRepeater.Layout>
         <ItemsRepeater.ItemTemplate>
-            <DataTemplate DataType="models:TankModel">
+            <DataTemplate>
                 <Button Background="Transparent"
+                        Command="{Binding #Repeater.((viewModels:HomePageViewModel)DataContext).NavigateTankDetails}"
                         Padding="0"
                         BorderThickness="0"
                         BorderBrush="Transparent"

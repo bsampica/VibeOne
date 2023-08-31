@@ -1,0 +1,133 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
+             xmlns:skiaSharpView="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
+             mc:Ignorable="d"
+             d:DesignHeight="400" d:DesignWidth="600"
+             x:Class="VibeOne.Views.DetailsTempPanel"
+             x:DataType="viewModels:TankDetailsViewModel">
+    <Grid
+        RowDefinitions="Auto, Auto, *"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch">
+        <TextBlock Text="LAST UPDATED: REALTIME &#186; F"
+                   FontSize="9" />
+        <StackPanel Grid.Row="1" Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <avalonia:MaterialIcon Kind="Fan"
+                                   Width="50"
+                                   Height="50"
+                                   Opacity=".7"
+                                   VerticalAlignment="Center" />
+            <TextBlock VerticalAlignment="Center"
+                       Text="21"
+                       FontSize="120" />
+            <TextBlock Text="&#186;F"
+                       FontSize="50"
+                       Margin="0,10,0,0"
+                       Opacity=".5" />
+        </StackPanel>
+        <Grid Grid.Row="2" ColumnDefinitions="*,*,*"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            <Grid.Styles>
+                <Style Selector="Border">
+                    <Setter Property="BorderBrush" Value="White" />
+                    <!-- <Setter Property="Height" Value="100" /> -->
+                    <Setter Property="CornerRadius" Value="10" />
+                    <Setter Property="Margin" Value="2,10,2, 10" />
+                    <Setter Property="VerticalAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch" />
+                    <Setter Property="Background">
+                        <SolidColorBrush Color="White" Opacity=".3" />
+                    </Setter>
+                </Style>
+                <Style Selector="Border>Grid>TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="0,10,0,0" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="FontWeight" Value="Black" />
+                    <Setter Property="Opacity" Value=".5" />
+                    <Setter Property="Foreground" Value="MediumSpringGreen" />
+                </Style>
+                <Style Selector="Panel>TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="0,8,0,0" />
+                    <Setter Property="FontSize" Value="50" />
+                    <Setter Property="FontWeight" Value="Black" />
+                </Style>
+                <Style Selector="Border>TextBlock">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="Margin" Value="100,5,0,0" />
+                    <Setter Property="FontSize" Value="20" />
+                    <Setter Property="Opacity" Value=".5" />
+                    <Setter Property="FontWeight" Value="Black" />
+                </Style>
+            </Grid.Styles>
+            <Border Grid.Column="0">
+                <Grid ColumnDefinitions="*"
+                      RowDefinitions="Auto, Auto, *">
+                    <TextBlock Text="TANK  |  1" />
+                    <Panel Grid.Row="1">
+                        <TextBlock Grid.Row="1" Text="54" />
+                        <Border Background="Transparent">
+                            <TextBlock Text="&#186; F" />
+                        </Border>
+                    </Panel>
+                    <lvc:CartesianChart Grid.Row="2"
+                                        TooltipPosition="Hidden"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Series="{Binding Series}">
+                        <lvc:CartesianChart.YAxes>
+                            <skiaSharpView:Axis>
+                                <skiaSharpView:Axis.Labeler>
+                                </skiaSharpView:Axis.Labeler>
+                                <skiaSharpView:Axis.LabelsRotation>
+                                    90
+                                </skiaSharpView:Axis.LabelsRotation>
+                            </skiaSharpView:Axis>
+                        </lvc:CartesianChart.YAxes>
+                    </lvc:CartesianChart>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1">
+                <Grid ColumnDefinitions="*"
+                      RowDefinitions="Auto, Auto, *">
+                    <TextBlock Text="TANK  |  2" />
+                    <Panel Grid.Row="1">
+                        <TextBlock Grid.Row="1" Text="73" />
+                        <Border Background="Transparent">
+                            <TextBlock Text="&#186; F" />
+                        </Border>
+                    </Panel>
+                    <lvc:CartesianChart Grid.Row="2"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Series="{Binding Series}" />
+                </Grid>
+            </Border>
+            <Border Grid.Column="2">
+                <Grid ColumnDefinitions="*"
+                      RowDefinitions="Auto, Auto, *">
+                    <TextBlock Text="TANK  |  3" />
+                    <Panel Grid.Row="1">
+                        <TextBlock Grid.Row="1" Text="81" />
+                        <Border Background="Transparent">
+                            <TextBlock Text="&#186; F" />
+                        </Border>
+                    </Panel>
+                    <lvc:CartesianChart Grid.Row="2"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Series="{Binding Series}" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

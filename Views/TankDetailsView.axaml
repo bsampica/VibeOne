@@ -4,11 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             xmlns:views="clr-namespace:VibeOne.Views"
              mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
              x:Class="VibeOne.Views.TankDetailsView"
              x:DataType="viewModels:TankDetailsViewModel">
-
 
     <Grid ColumnDefinitions="Auto, *"
           RowDefinitions="Auto, *">
@@ -20,64 +19,32 @@
         </Grid.Background>
         <Button Command="{Binding NavigateBack}"
                 Height="50"
-                Width="50"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+                Width="50">
             <Button.Content>
                 <avalonia:MaterialIcon Kind="ArrowBack"></avalonia:MaterialIcon>
             </Button.Content>
         </Button>
-        <TextBlock Text="Tank Details"
+        <TextBlock Text="PLACEHOLDER"
                    Grid.Row="0"
                    Grid.Column="1"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="15" FontWeight="Black"
-                   Margin="-50,0,0,0" /> <!-- NEGATIVE MARGIN FOR CENTERING -->
+                   Margin="-50,0,0,0" /><!-- NEGATIVE MARGIN FOR CENTERING -->
         <!-- END OF HEADER AND BACK BUTTON -->
-        <Grid Background="Orange" Opacity=""
-              Grid.RowDefinitions="Auto, Auto, Auto, *"
-              Grid.ColumnDefinitions="Auto"
-              Grid.Column="0"
-              Grid.Row="1"
-              Grid.ColumnSpan="2">
-            <!-- INNER GRID CONTENT AREA -->
-            <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <TextBlock Text="Value:  " HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"></TextBlock>
-                <Slider x:Name="SldValue" Value="{Binding Needle.Value, FallbackValue=0}" Minimum="0" Maximum="100"
-                        Width="200" HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                </Slider>
-                <TextBlock Text="{Binding #SldValue.Value}" VerticalAlignment="Center" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <TextBlock Text="Rotation:  " HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontWeight="Black">
-                </TextBlock>
-                <Slider x:Name="SldRotation" Value="0" Minimum="-360" Maximum="360" Width="200"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                </Slider>
-                <TextBlock Text="{Binding #SldRotation.Value}" VerticalAlignment="Center"></TextBlock>
-
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Grid.Row="2">
-                <TextBlock Text="Angle:  " HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"></TextBlock>
-                <Slider x:Name="SldAngle" Value="270" Minimum="0" Maximum="360" Width="200"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
-                </Slider>
-                <TextBlock Text="{Binding #SldAngle.Value}" VerticalAlignment="Center"></TextBlock>
-            </StackPanel>
-            <lvc:PieChart
-                Grid.Row="3"
-                Series="{Binding Series}"
-                VisualElements="{Binding VisualElements}"
-                InitialRotation="{Binding #SldRotation.Value, Mode=OneWay, FallbackValue=0}"
-                MaxAngle="{Binding #SldAngle.Value, Mode=OneWay, FallbackValue=270}"
-                MinValue="0"
-                MaxValue="100" />
-        </Grid>
-
+        <UniformGrid
+            Grid.Row="1"
+            Grid.Column="1"
+            Rows="1"
+            Columns="2">
+            <views:DetailsTempPanel
+                Margin="0,12,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+            <views:DetailsTodayPanel
+                Margin="10,0,10,10"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
+        </UniformGrid>
     </Grid>
 </UserControl>

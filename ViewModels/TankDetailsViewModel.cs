@@ -1,19 +1,20 @@
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Reactive;
-using Avalonia.Media;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using LiveChartsCore;
-using LiveChartsCore.Defaults;
 using LiveChartsCore.Drawing;
+using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Drawing;
-using LiveChartsCore.SkiaSharpView.Extensions;
+using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
-using LiveChartsCore.SkiaSharpView.VisualElements;
-using LiveChartsCore.VisualElements;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using SkiaSharp;
 using Splat;
+using VibeOne.Models;
 using VibeOne.Services;
 
 namespace VibeOne.ViewModels;
@@ -24,57 +25,79 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
     public IScreen HostScreen { get; }
     private readonly RoutingState _router = Locator.Current.GetService<RoutingState>()!;
     public ReactiveCommand<Unit, IRoutableViewModel?> NavigateBack { get; }
-    public ReactiveCommand<Unit, Unit> DoRandomChange { get; }
 
-    [Reactive] public IEnumerable<ISeries> Series { get; set; }
+    public IObservable<DateTime> CurrentTime { get; set; }
+        = Observable.Create<DateTime>(observer =>
+        {
+            var timer = new System.Timers.Timer();
+            timer.Interval = 1000;
+            timer.Elapsed += (_, _) =>
+            {
+                observer.OnNext(DateTime.Now);
+            };
+            timer.Start();
+            return Disposable.Empty;
+        });
 
-    [Reactive] public NeedleVisual Needle { get; set; }
+    [Reactive] public TankModel SelectedTankModel { get; set; }
 
-    private readonly Random _random = new();
+    [Reactive] public List<ISeries> Series { get; set; }
 
-    [Reactive] public IEnumerable<VisualElement<SkiaSharpDrawingContext>> VisualElements { get; set; }
-
-    public Task DoRandomChangeExecute()
-    {
-        Needle.Value = _random.Next(-100, 20);
-        return Task.CompletedTask;
-    }
 
     public TankDetailsViewModel(IScreen hostScreen)
     {
         HostScreen = hostScreen;
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
-        DoRandomChange = ReactiveCommand.CreateFromTask(DoRandomChangeExecute);
+        var tankService = Locator.Current.GetService<TankService>();
+        tankService?.MockData();
+        SelectedTankModel = tankService?.Tanks.First()!;
+        BuildChartSeriesData();
+    }
 
-        var sectionsOuter = 130;
-        var sectionsWidth = 20;
+    private void BuildChartSeriesData()
+    {
+        var values1 = new List<float>();
+        var x = -0.05f;
+        var fx = EasingFunctions.BounceInOut; // this is the function we are going to plot
 
-        Needle = new NeedleVisual() { Value = 45, ScalesXAt = 145, ScalesYAt = 145 };
-
-
-        Series = GaugeGenerator.BuildAngularGaugeSections(
-            new GaugeItem(60, s => SetStyle(sectionsOuter, sectionsWidth, s)),
-            new GaugeItem(30, s => SetStyle(sectionsOuter, sectionsWidth, s)),
-            new GaugeItem(10, s => SetStyle(sectionsOuter, sectionsWidth, s)));
-
-        VisualElements = new VisualElement<SkiaSharpDrawingContext>[]
+        while (x <= 1f)
         {
-            new AngularTicksVisual()
-            {
-                LabelsSize = 16,
-                LabelsOuterOffset = 15,
-                OuterOffset = 65,
-                TicksLength = 20,
-                Stroke = new SolidColorPaint(SKColors.Brown),
-            },
-            Needle,
+            values1.Add(fx(x));
+            x += .009f;
+        }
+
+        var valuesCopy = values1
+            .OrderByDescending(ob => ob)
+            .Select(s => float.Parse(s.ToString().Substring(2, 2)));
+
+
+        var columnSeries1 = new ColumnSeries<float>
+        {
+            Values = valuesCopy,
+            Stroke = null,
+            Padding = 2,
+            MaxBarWidth = double.PositiveInfinity,
         };
 
-        static void SetStyle(double sectionsOuter, double sectionsWidth, PieSeries<ObservableValue> series)
-        {
-            series.OuterRadiusOffset = sectionsOuter;
-            series.MaxRadialColumnWidth = sectionsWidth;
-            series.AnimationsSpeed = new TimeSpan(0, 0, 0, 0, 300);
-        }
+        columnSeries1.PointMeasured += OnPointMeasured;
+        Series = new List<ISeries> { columnSeries1 };
+    }
+
+    private void OnPointMeasured(ChartPoint<float, RoundedRectangleGeometry, LabelGeometry> point)
+    {
+        var perPointDelay = 65; // milliseconds
+        var delay = point.Context.Entity.MetaData!.EntityIndex * perPointDelay;
+        var speed = (float)point.Context.Chart.AnimationsSpeed.TotalMilliseconds + delay;
+
+        point.Visual?.SetTransition(
+            new Animation(progress =>
+                {
+                    var d = delay / speed;
+
+                    return progress <= d
+                        ? 0
+                        : EasingFunctions.BuildCustomElasticOut(1.5f, 0.60f)((progress - d) / (1 - d));
+                },
+                TimeSpan.FromMilliseconds(speed)));
     }
 }
