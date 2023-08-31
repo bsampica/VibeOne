@@ -29,4 +29,15 @@
     <PackageReference Include="ReactiveUI.Fody" Version="19.4.1" />
     <PackageReference Include="System.Device.Gpio" Version="3.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\DetailsTempPanel.axaml.cs">
+      <DependentUpon>DetailsTempPanel.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DetailsTodayPanel.axaml.cs">
+      <DependentUpon>DetailsTodayPanel.axaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

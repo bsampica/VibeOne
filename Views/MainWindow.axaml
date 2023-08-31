@@ -45,8 +45,8 @@
                                                            Foreground="White"
                                                            Height="30"
                                                            Width="30" />
-                                    <TextBlock Text="Dashboard" Margin="10,0,0,0" FontSize="18"
-                                               VerticalAlignment="Center" />
+                                    <!-- <TextBlock Text="Dashboard" Margin="10,0,0,0" FontSize="18" -->
+                                    <!--            VerticalAlignment="Center" /> -->
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -57,9 +57,9 @@
                                                            Foreground="White"
                                                            Height="30"
                                                            Width="30" />
-                                    <TextBlock Text="Operations" Margin="10,0,0,0" FontSize="18"
-                                               VerticalAlignment="Center" />
-
+                                    <!-- <TextBlock Text="Operations" Margin="10,0,0,0" FontSize="18" -->
+                                    <!--            VerticalAlignment="Center" /> -->
+                        
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -83,20 +83,20 @@
                 <!-- END NAV PANE -->
             </SplitView.Pane>
             <!-- SPLITVIEW CONTENT AREA -->
-            <TransitioningContentControl>
-                <TransitioningContentControl.Content>
-                    
-                </TransitioningContentControl.Content>
-            </TransitioningContentControl>
-            <!-- <rx:RoutedViewHost -->
-            <!--     x:Name="RoutedViewHost" Router="{Binding Router}"> -->
-            <!--     <rx:RoutedViewHost.DefaultContent> -->
-            <!--         <TextBlock Text="Default Content"></TextBlock> -->
-            <!--     </rx:RoutedViewHost.DefaultContent> -->
-            <!--     <rx:RoutedViewHost.ViewLocator> -->
-            <!--         <local:ViewLocator /> -->
-            <!--     </rx:RoutedViewHost.ViewLocator> -->
-            <!-- </rx:RoutedViewHost> -->
+            <!-- <TransitioningContentControl> -->
+            <!--     <TransitioningContentControl.Content> -->
+            <!--          -->
+            <!--     </TransitioningContentControl.Content> -->
+            <!-- </TransitioningContentControl> -->
+            <rx:RoutedViewHost
+                x:Name="RoutedViewHost" Router="{Binding Router}">
+                <rx:RoutedViewHost.DefaultContent>
+                    <TextBlock Text="Default Content"></TextBlock>
+                </rx:RoutedViewHost.DefaultContent>
+                <rx:RoutedViewHost.ViewLocator>
+                    <local:ViewLocator />
+                </rx:RoutedViewHost.ViewLocator>
+            </rx:RoutedViewHost>
         </SplitView>
     </Panel>
 </Window>
