@@ -1,16 +1,6 @@
 ﻿using System.Reactive;
-using System.Reactive.Linq;
-using System.Windows.Input;
-using Avalonia;
-using Avalonia.Animation;
-using Avalonia.Controls;
-using DynamicData;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
 using Splat;
-using VibeOne.Models;
-using VibeOne.Services;
-using VibeOne.Views;
 
 namespace VibeOne.ViewModels;
 
