@@ -26,9 +26,15 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            Console.WriteLine($"Detected Classic Destkop Style Application Lifetime");
             desktop.MainWindow = new MainWindow() { DataContext = new MainWindowViewModel() };
+        }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
-            singleView.MainView = new MainWindow() { DataContext = new MainWindowViewModel() };
+        {
+            Console.WriteLine($"Detected Single View Style Application Lifetime");
+            singleView.MainView = new MainWindow() { DataContext = new HomePageViewModel() };
+        }
 
 
         base.OnFrameworkInitializationCompleted();
