@@ -1,21 +1,18 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:VibeOne.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
-        xmlns:rx="http://reactiveui.net"
-        xmlns:local="clr-namespace:VibeOne"
-        mc:Ignorable="d" d:DesignWidth="700" d:DesignHeight="400"
-        x:Class="VibeOne.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Vibe NinetyNine"
-        TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
-        ExtendClientAreaToDecorationsHint="true">
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:reactiveUi="http://reactiveui.net"
+             xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+             xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
+             xmlns:vibeOne="clr-namespace:VibeOne"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="VibeOne.Views.MainView"
+             x:DataType="viewModels:MainWindowViewModel">
+
+
     <Design.DataContext>
-        <vm:MainWindowViewModel />
+        <viewModels:MainWindowViewModel />
     </Design.DataContext>
 
     <Panel>
@@ -87,15 +84,15 @@
             <!--          -->
             <!--     </TransitioningContentControl.Content> -->
             <!-- </TransitioningContentControl> -->
-            <rx:RoutedViewHost
+            <reactiveUi:RoutedViewHost
                 x:Name="RoutedViewHost" Router="{Binding Router}">
-                <rx:RoutedViewHost.DefaultContent>
+                <reactiveUi:RoutedViewHost.DefaultContent>
                     <TextBlock Text="Default Content"></TextBlock>
-                </rx:RoutedViewHost.DefaultContent>
-                <rx:RoutedViewHost.ViewLocator>
-                    <local:ViewLocator />
-                </rx:RoutedViewHost.ViewLocator>
-            </rx:RoutedViewHost>
+                </reactiveUi:RoutedViewHost.DefaultContent>
+                <reactiveUi:RoutedViewHost.ViewLocator>
+                    <vibeOne:ViewLocator />
+                </reactiveUi:RoutedViewHost.ViewLocator>
+            </reactiveUi:RoutedViewHost>
         </SplitView>
     </Panel>
-</Window>
+</UserControl>

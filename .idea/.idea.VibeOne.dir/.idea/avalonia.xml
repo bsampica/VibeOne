@@ -11,6 +11,7 @@
         <entry key="Views/DetailsTodayPanel.axaml" value="VibeOne.csproj" />
         <entry key="Views/HistoryPanel.axaml" value="VibeOne.csproj" />
         <entry key="Views/HomePageView.axaml" value="VibeOne.csproj" />
+        <entry key="Views/MainView.axaml" value="VibeOne.csproj" />
         <entry key="Views/MainWindow.axaml" value="VibeOne.csproj" />
         <entry key="Views/NewWindow.axaml" value="VibeOne.csproj" />
         <entry key="Views/OperationsView.axaml" value="VibeOne.csproj" />
