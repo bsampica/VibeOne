@@ -22,7 +22,9 @@ namespace VibeOne.ViewModels;
 public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 {
     public string? UrlPathSegment { get; } = "/tankdetails";
-    public IScreen HostScreen { get; }
+#pragma warning disable CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
+    public IScreen? HostScreen { get; }
+#pragma warning restore CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
     private readonly RoutingState _router = Locator.Current.GetService<RoutingState>()!;
     public ReactiveCommand<Unit, IRoutableViewModel?> NavigateBack { get; }
 
@@ -41,19 +43,19 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
     [Reactive] public TankModel SelectedTankModel { get; set; }
 
-    [Reactive] public List<ISeries> Series { get; set; }
+    [Reactive] public List<ISeries>? Series { get; set; }
 
     [Reactive] public float Tank1Temperature { get; set; } = 0.00f;
     [Reactive] public float Tank2Temperature { get; set; } = 0.00f;
     [Reactive] public float Tank3Temperature { get; set; } = 0.00f;
 
-    public TankDetailsViewModel(IScreen hostScreen = null)
+    public TankDetailsViewModel(IScreen? hostScreen = null)
     {
         HostScreen = hostScreen;
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
         var tankService = Locator.Current.GetService<TankService>();
         tankService?.MockData();
-        SelectedTankModel = tankService?.Tanks.First()!;
+        SelectedTankModel = tankService?.Tanks!.First()!;
         BuildChartSeriesData();
     }
 

@@ -11,7 +11,7 @@ namespace VibeOne.Services;
 
 public class TankService
 {
-    public IEnumerable<TankModel> Tanks { get; set; }
+    public IEnumerable<TankModel>? Tanks { get; set; }
 
 
     public TankService()
@@ -19,7 +19,7 @@ public class TankService
         Tanks = MockData();
     }
 
-    public List<TankModel> MockData()
+    public List<TankModel>? MockData()
     {
         return new List<TankModel>()
         {
