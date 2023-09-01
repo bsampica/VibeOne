@@ -20,6 +20,7 @@ class Program
         {
             SilenceConsole();
             var drm = builder.StartLinuxDrm(args, "", false);
+            return drm;
             //return builder.StartLinuxFbDev(args);
         }
 
