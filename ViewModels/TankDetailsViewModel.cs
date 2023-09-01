@@ -47,7 +47,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
     [Reactive] public float Tank2Temperature { get; set; } = 0.00f;
     [Reactive] public float Tank3Temperature { get; set; } = 0.00f;
 
-    public TankDetailsViewModel(IScreen hostScreen)
+    public TankDetailsViewModel(IScreen hostScreen = null)
     {
         HostScreen = hostScreen;
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
