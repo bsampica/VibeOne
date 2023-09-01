@@ -7,9 +7,9 @@
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
              xmlns:vibeOne="clr-namespace:VibeOne"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             Width="500" Height="500"
              x:Class="VibeOne.Views.MainView"
-             x:DataType="viewModels:MainWindowViewModel"
-             Background="Transparent">
+             x:DataType="viewModels:MainWindowViewModel">
 
     <Design.DataContext>
         <viewModels:MainWindowViewModel />
