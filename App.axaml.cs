@@ -33,7 +33,7 @@ public partial class App : Application
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleView)
         {
             Console.WriteLine($"Detected Single View Style Application Lifetime");
-            singleView.MainView = new HistoryPanel() { DataContext = new HomePageViewModel() };
+            singleView.MainView = new MainWindow() { DataContext = new HomePageViewModel() };
         }
 
 
