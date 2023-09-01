@@ -8,23 +8,23 @@
              xmlns:vibeOne="clr-namespace:VibeOne"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="VibeOne.Views.MainView"
-             x:DataType="viewModels:MainWindowViewModel">
-
+             x:DataType="viewModels:MainWindowViewModel"
+             Background="Transparent">
 
     <Design.DataContext>
         <viewModels:MainWindowViewModel />
     </Design.DataContext>
 
     <Panel>
-        <ExperimentalAcrylicBorder IsHitTestVisible="False">
-            <ExperimentalAcrylicBorder.Material>
-                <ExperimentalAcrylicMaterial
-                    BackgroundSource="Digger"
-                    TintColor="Black"
-                    TintOpacity="1"
-                    MaterialOpacity="0.65" />
-            </ExperimentalAcrylicBorder.Material>
-        </ExperimentalAcrylicBorder>
+        <!-- <ExperimentalAcrylicBorder IsHitTestVisible="False"> -->
+        <!--     <ExperimentalAcrylicBorder.Material> -->
+        <!--         <ExperimentalAcrylicMaterial -->
+        <!--             BackgroundSource="Digger" -->
+        <!--             TintColor="Black" -->
+        <!--             TintOpacity="1" -->
+        <!--             MaterialOpacity="0.65" /> -->
+        <!--     </ExperimentalAcrylicBorder.Material> -->
+        <!-- </ExperimentalAcrylicBorder> -->
 
         <SplitView x:Name="SplitViewMenu" IsPaneOpen="false"
                    DisplayMode="CompactInline"
