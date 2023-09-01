@@ -15,10 +15,10 @@ namespace VibeOne.Views;
 
 public partial class MainView : ReactiveUserControl<MainWindowViewModel>
 {
-    // public MainView()
-    // {
-    //     InitializeComponent();
-    // }
+    public MainView()
+    {
+        InitializeComponent();
+    }
     
     private void ToggleMenu_OnClick(object? sender, RoutedEventArgs e)
     {
