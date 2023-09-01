@@ -1,5 +1,4 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using Avalonia;
 using Avalonia.ReactiveUI;
@@ -22,6 +21,13 @@ class Program
             var drm = builder.StartLinuxDrm(args, "", false);
             return drm;
             //return builder.StartLinuxFbDev(args);
+        }
+
+        if (args.Contains("--fbdev"))
+        {
+            SilenceConsole();
+            var fbdev = builder.StartLinuxFbDev(args);
+            return fbdev;
         }
 
         return builder.StartWithClassicDesktopLifetime(args);
