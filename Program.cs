@@ -24,25 +24,18 @@ class Program
             SilenceConsole();
             return builder.StartLinuxFbDev(args);
         }
-        else if (args.Contains("--direct"))
-        {
-            SilenceConsole();
-            return builder.StartLinuxDirect(args, new FbdevOutput(), new NullInputBackend());
-        }
-
 
         return builder.StartWithClassicDesktopLifetime(args);
-
     }
 
     private static void SilenceConsole()
     {
-        // new Thread(() =>
-        // {
-        //     Console.CursorVisible = false;
-        //     while (true)
-        //         Console.ReadKey(true);
-        // }) { IsBackground = true }.Start();
+        new Thread(() =>
+        {
+            Console.CursorVisible = false;
+            while (true)
+                Console.ReadKey(true);
+        }) { IsBackground = true }.Start();
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
@@ -50,7 +43,7 @@ class Program
         => AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            //With(new X11PlatformOptions() { EnableMultiTouch = true, UseDBusMenu = true, EnableIme = true })
+            .With(new X11PlatformOptions() { EnableMultiTouch = true, UseDBusMenu = true, EnableIme = true })
             .LogToTrace()
             .UseReactiveUI();
 }
