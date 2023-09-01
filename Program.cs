@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿
+using System.Linq;
 using System.Threading;
 using Avalonia;
 using Avalonia.ReactiveUI;
+
 
 namespace VibeOne;
 
@@ -17,8 +19,8 @@ class Program
         if (args.Contains("--drm"))
         {
             SilenceConsole();
-            //return builder.StartLinuxDrm(args);
-            return builder.StartLinuxFbDev(args);
+            var drm = builder.StartLinuxDrm(args, "", false);
+            //return builder.StartLinuxFbDev(args);
         }
 
         return builder.StartWithClassicDesktopLifetime(args);
