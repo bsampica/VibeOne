@@ -18,11 +18,15 @@ class Program
     public static int Main(string[] args)
     {
         var builder = BuildAvaloniaApp();
-
+        SilenceConsole();
         if (args.Contains("--fbdev"))
         {
-            SilenceConsole();
             return builder.StartLinuxFbDev(args);
+        }
+
+        if (args.Contains("--drm"))
+        {
+            return builder.StartLinuxDrm(args: args, card: null, connectorsForceProbe: false);
         }
 
         return builder.StartWithClassicDesktopLifetime(args);
