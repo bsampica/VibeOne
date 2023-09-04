@@ -43,6 +43,10 @@ public class SensorService
 
         Console.WriteLine($"Device One:  {_wireThermometerDevice1.DeviceId}");
         Console.WriteLine($"Device Two: {_wireThermometerDevice2.DeviceId}");
+
+        var tempReading1 = _wireThermometerDevice1.ReadTemperature();
+        var tempReading2 = _wireThermometerDevice2.ReadTemperature();
+        
         // Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
         // Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
     }
