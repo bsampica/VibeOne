@@ -28,10 +28,20 @@ public class SensorService
         _oneWireBus1 = new OneWireBus(BusId1);
         _oneWireBus2 = new OneWireBus(BusId2);
 
-        _wireThermometerDevice1 = new OneWireThermometerDevice(BusId1, TempSensorOneId);
-        _wireThermometerDevice2 = new OneWireThermometerDevice(BusId2, TempSensorTwoId);
+        foreach (var dev in _oneWireBus1.EnumerateDeviceIds())
+        {
+            Console.WriteLine($"Device Id {dev}");
+        }
 
-        Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
-        Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
+        foreach (var dev in _oneWireBus2.EnumerateDeviceIds())
+        {
+            Console.WriteLine($"Device Id {dev}");
+        }
+
+        // _wireThermometerDevice1 = new OneWireThermometerDevice(BusId1, TempSensorOneId);
+        // _wireThermometerDevice2 = new OneWireThermometerDevice(BusId2, TempSensorTwoId);
+
+        // Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
+        // Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
     }
 }
