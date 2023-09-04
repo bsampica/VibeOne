@@ -14,14 +14,17 @@ public class SensorService
     private const string Device1Id = "28-03139794691e";
     private const string Device2Id = "28-031397944f32";
 
+    public OneWireThermometerDevice? TemperatureDevice1 { get; init; }
+    public OneWireThermometerDevice? TemperatureDevice2 { get; init; }
 
     public SensorService()
     {
-        if (DeviceInstance.IsRPI == false) return;
-        var sensor1 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device1Id);
-        var sensor2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
+        if (DeviceInstance.IsRPI == false) return; // Dont load the sensors if we arent on a raspberry pi
 
-        Console.WriteLine($"Sensor 1: {sensor1.ReadTemperature().DegreesFahrenheit}");
-        Console.WriteLine($"SEnsor 2: {sensor2.ReadTemperature().DegreesFahrenheit}");
+        TemperatureDevice1 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device1Id);
+        TemperatureDevice2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
+
+        //Console.WriteLine($"Sensor 1: {sensor1.ReadTemperature().DegreesFahrenheit}");
+        //Console.WriteLine($"Sensor 2: {sensor2.ReadTemperature().DegreesFahrenheit}");
     }
 }

@@ -27,6 +27,7 @@ public partial class App : Application
         Locator.CurrentMutable.RegisterLazySingleton(() => new RoutingState());
         Locator.CurrentMutable.RegisterLazySingleton(() => new TankService());
         Locator.CurrentMutable.RegisterLazySingleton(() => new SensorService());
+        Locator.CurrentMutable.RegisterLazySingleton(() => new RelayService());
     }
 
     public override void OnFrameworkInitializationCompleted()
@@ -45,6 +46,9 @@ public partial class App : Application
         }
 
         var sensorService = Locator.Current.GetService<SensorService>();
+        var relayService = Locator.Current.GetService<RelayService>();
+
+        relayService?.PulseRelay(new TimeSpan(0, 0, 0, 1));
         base.OnFrameworkInitializationCompleted();
     }
 }
