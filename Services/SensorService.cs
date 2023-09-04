@@ -9,19 +9,33 @@ namespace VibeOne.Services;
 
 public class SensorService
 {
-    private OneWireBus _oneWireBus { get; set; }
-    private OneWireThermometerDevice _wireThermometerDevice { get; set; }
+    private const string BusId1 = "w1_bus_master1";
+    private const string BusId2 = "w1_bus_master2";
+    private const string TempSensorOneId = "28-031397944f32";
+    private const string TempSensorTwoId = "28-03139794691e";
+    private OneWireBus _oneWireBus1 { get; set; }
+    private OneWireBus _oneWireBus2 { get; set; }
+    private OneWireThermometerDevice _wireThermometerDevice1 { get; set; }
+    private OneWireThermometerDevice _wireThermometerDevice2 { get; set; }
     private DispatcherTimer _timer;
 
 
     public SensorService()
     {
         if (DeviceInstance.IsRPI == false) return;
-        var busIds = OneWireBus.EnumerateBusIds();
-        foreach (var id in busIds)
+
+        _oneWireBus1 = new OneWireBus(BusId1);
+        _oneWireBus2 = new OneWireBus(BusId2);
+
+        _wireThermometerDevice1 = new OneWireThermometerDevice(BusId1, TempSensorOneId);
+        _wireThermometerDevice2 = new OneWireThermometerDevice(BusId2, TempSensorTwoId);
+
+        _timer = new DispatcherTimer();
+        _timer.Tick += (sender, args) =>
         {
-            Console.WriteLine($"BUS ID: {id}");
-        }
+            Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
+            Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
+        };
 
     }
 }
