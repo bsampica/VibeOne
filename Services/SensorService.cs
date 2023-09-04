@@ -12,7 +12,7 @@ public class SensorService
 {
     private const string BusId1 = "w1_bus_master1";
     private const string BusId2 = "w1_bus_master2";
-    private const string TempSensorOneId = "28-031397944f32";
+    private const string TempSensorOneId = "28-031397944f32"; //28-03139794691e
     private const string TempSensorTwoId = "28-03139794691e";
     private OneWireBus _oneWireBus1 { get; set; }
     private OneWireBus _oneWireBus2 { get; set; }
@@ -38,9 +38,11 @@ public class SensorService
             Console.WriteLine($"Device Id {dev}");
         }
 
-        // _wireThermometerDevice1 = new OneWireThermometerDevice(BusId1, TempSensorOneId);
-        // _wireThermometerDevice2 = new OneWireThermometerDevice(BusId2, TempSensorTwoId);
+        _wireThermometerDevice1 = new OneWireThermometerDevice(BusId1, TempSensorOneId);
+        _wireThermometerDevice2 = new OneWireThermometerDevice(BusId2, TempSensorTwoId);
 
+        Console.WriteLine($"Device One:  {_wireThermometerDevice1.DeviceId}");
+        Console.WriteLine($"Device Two: {_wireThermometerDevice2.DeviceId}");
         // Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
         // Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
     }
