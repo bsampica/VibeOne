@@ -36,6 +36,8 @@ public class SensorService
             Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
             Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
         };
+        _timer.Interval = new TimeSpan(0, 0, 1);
+        _timer.Start();
 
     }
 }
