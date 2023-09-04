@@ -1,6 +1,7 @@
 ﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
+
 using System.Device.Gpio;
 using Avalonia.Threading;
 using Iot.Device.OneWire;
@@ -30,14 +31,7 @@ public class SensorService
         _wireThermometerDevice1 = new OneWireThermometerDevice(BusId1, TempSensorOneId);
         _wireThermometerDevice2 = new OneWireThermometerDevice(BusId2, TempSensorTwoId);
 
-        _timer = new DispatcherTimer();
-        _timer.Tick += (sender, args) =>
-        {
-            Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
-            Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
-        };
-        _timer.Interval = new TimeSpan(0, 0, 1);
-        _timer.Start();
-
+        Console.WriteLine($"Temp 1 Temp  : {_wireThermometerDevice1.ReadTemperature().DegreesFahrenheit.ToString()}");
+        Console.WriteLine($"Temp 2 Temp : {_wireThermometerDevice2.ReadTemperature().DegreesFahrenheit.ToString()}");
     }
 }
