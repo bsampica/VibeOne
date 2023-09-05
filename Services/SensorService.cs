@@ -24,9 +24,6 @@ public class SensorService
 
         TemperatureDevice1 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device1Id);
         TemperatureDevice2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
-
-        //Console.WriteLine($"Sensor 1: {sensor1.ReadTemperature().DegreesFahrenheit}");
-        //Console.WriteLine($"Sensor 2: {sensor2.ReadTemperature().DegreesFahrenheit}");
     }
 
     public async Task StartTemperatureMonitorAsync(CancellationTokenSource token = null)

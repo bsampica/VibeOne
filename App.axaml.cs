@@ -52,14 +52,12 @@ public partial class App : Application
     private void StartupSensorTest()
     {
         var sensorService = Locator.Current.GetService<SensorService>();
-        Task.Run(() => sensorService?
-            .StartTemperatureMonitorAsync());
+        sensorService?.StartTemperatureMonitorAsync();
     }
 
     private void StartupRelayTest()
     {
         var relayService = Locator.Current.GetService<RelayService>();
-        Task.Run(() => relayService?
-            .ToggleRelayAsync(new TimeSpan(0, 0, 0, 10)));
+        relayService?.ToggleRelayAsync(new TimeSpan(0, 0, 0, 10));
     }
 }
