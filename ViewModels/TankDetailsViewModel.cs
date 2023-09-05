@@ -23,9 +23,7 @@ namespace VibeOne.ViewModels;
 public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 {
     public string? UrlPathSegment { get; } = "/tankdetails";
-#pragma warning disable CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
     public IScreen? HostScreen { get; }
-#pragma warning restore CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member (possibly because of nullability attributes).
     private readonly RoutingState _router = Locator.Current.GetService<RoutingState>()!;
     public ReactiveCommand<Unit, IRoutableViewModel?> NavigateBack { get; }
 
@@ -50,7 +48,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
     [Reactive] public double Tank1Temperature { get; set; } = 0.00f;
     [Reactive] public double Tank2Temperature { get; set; } = 0.00f;
-    [Reactive] public float Tank3Temperature { get; set; } = 0.00f;
+    [Reactive] public double Tank3Temperature { get; set; } = 0.00f;
 
     public TankDetailsViewModel(IScreen? hostScreen = null)
     {
@@ -66,8 +64,10 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
         _sensorService.PropertyChanged += (sender, args) =>
         {
-            Tank1Temperature = _sensorService.TemperatureOne;
+            Tank1Temperature = _sensorService.TemperatureOne - 10.7d;
             Tank2Temperature = _sensorService.TemperatureTwo;
+            Tank3Temperature = _sensorService.TemperatureTwo + 10.2d;
+            SelectedTankModel.Temperature = _sensorService.TemperatureOne;
         };
 
         BuildChartSeriesData();
