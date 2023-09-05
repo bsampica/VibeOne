@@ -45,7 +45,8 @@ public partial class App : Application
             singleView.MainView = new MainView() { DataContext = new MainWindowViewModel() };
         }
 
-
+        StartupRelayTest();
+        StartupSensorTest();
         base.OnFrameworkInitializationCompleted();
     }
 
