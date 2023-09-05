@@ -26,9 +26,9 @@ public class SensorService
         TemperatureDevice2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
     }
 
-    public async Task StartTemperatureMonitorAsync(CancellationTokenSource token = null)
+    public async Task StartTemperatureMonitorAsync()
     {
-        while (!token.IsCancellationRequested)
+        while (true)
         {
             Console.WriteLine("Inside the While Loop, repeating sensor service every 20 seconds");
             var sensor1 = await TemperatureDevice1.ReadTemperatureAsync()!;
