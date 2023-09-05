@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
@@ -40,15 +41,14 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
             return Disposable.Empty;
         });
 
-    private SensorService _sensorService;
+    private readonly SensorService _sensorService;
 
     [Reactive] public TankModel SelectedTankModel { get; set; }
-
     [Reactive] public List<ISeries>? Series { get; set; }
-
-    [Reactive] public double Tank1Temperature { get; set; } = 0.00f;
-    [Reactive] public double Tank2Temperature { get; set; } = 0.00f;
-    [Reactive] public double Tank3Temperature { get; set; } = 0.00f;
+    [Reactive] public double MainTankTemperature { get; set; }
+    [Reactive] public double Tank1Temperature { get; set; }
+    [Reactive] public double Tank2Temperature { get; set; }
+    [Reactive] public double Tank3Temperature { get; set; }
 
     public TankDetailsViewModel(IScreen? hostScreen = null)
     {
@@ -62,15 +62,16 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
             Locator.Current.GetService<SensorService>() ??
             new SensorService(); // TODO: Figure out how to handle null locator calls.
 
-        _sensorService.PropertyChanged += (sender, args) =>
-        {
-            Tank1Temperature = _sensorService.TemperatureOne - 10.7d;
-            Tank2Temperature = _sensorService.TemperatureTwo;
-            Tank3Temperature = _sensorService.TemperatureTwo + 10.2d;
-            SelectedTankModel.Temperature = _sensorService.TemperatureOne;
-        };
-
+        _sensorService.PropertyChanged += HandleTemperatureChange;
         BuildChartSeriesData();
+    }
+
+    private void HandleTemperatureChange(object? sender, PropertyChangedEventArgs args)
+    {
+        Tank1Temperature = _sensorService.TemperatureOne - 10.7d;
+        Tank2Temperature = _sensorService.TemperatureTwo;
+        Tank3Temperature = _sensorService.TemperatureTwo + 10.2d;
+        MainTankTemperature = _sensorService.TemperatureOne;
     }
 
     private void BuildChartSeriesData()
