@@ -4,6 +4,7 @@
 
 using System.Device.Gpio;
 using System.Linq;
+using System.Threading;
 using Avalonia.Threading;
 using Iot.Device.OneWire;
 
@@ -26,5 +27,17 @@ public class SensorService
 
         //Console.WriteLine($"Sensor 1: {sensor1.ReadTemperature().DegreesFahrenheit}");
         //Console.WriteLine($"Sensor 2: {sensor2.ReadTemperature().DegreesFahrenheit}");
+    }
+
+    public async Task StartTemperatureMonitorAsync(CancellationTokenSource token = null)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            var sensor1 = await TemperatureDevice1?.ReadTemperatureAsync()!;
+            var sensor2 = await TemperatureDevice2?.ReadTemperatureAsync()!;
+            //Console.WriteLine($"Sensor 1: {sensor1.ReadTemperature().DegreesFahrenheit}");
+            //Console.WriteLine($"Sensor 2: {sensor2.ReadTemperature().DegreesFahrenheit}");
+            await Task.Delay(new TimeSpan(0, 0, 0, 20));
+        }
     }
 }

@@ -45,10 +45,21 @@ public partial class App : Application
             singleView.MainView = new MainView() { DataContext = new MainWindowViewModel() };
         }
 
-        var sensorService = Locator.Current.GetService<SensorService>();
-        var relayService = Locator.Current.GetService<RelayService>();
 
-        relayService?.ToggleRelay(new TimeSpan(0, 0, 0, 10));
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void StartupSensorTest()
+    {
+        var sensorService = Locator.Current.GetService<SensorService>();
+        Task.Run(() => sensorService?
+            .StartTemperatureMonitorAsync());
+    }
+
+    private void StartupRelayTest()
+    {
+        var relayService = Locator.Current.GetService<RelayService>();
+        Task.Run(() => relayService?
+            .ToggleRelayAsync(new TimeSpan(0, 0, 0, 10)));
     }
 }

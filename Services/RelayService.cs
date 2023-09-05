@@ -36,6 +36,13 @@ public class RelayService : IDisposable
         _gpioController.Write(PinNumber, PinValue.Low);
     }
 
+    public async Task ToggleRelayAsync(TimeSpan toggleDelay)
+    {
+        _gpioController.Write(PinNumber, PinValue.High);
+        await Task.Delay(toggleDelay);
+        _gpioController.Write(PinNumber, PinValue.Low);
+    }
+
 
     public void Dispose()
     {
