@@ -29,10 +29,10 @@ public class RelayService : IDisposable
         Console.WriteLine($"PIN EVENT: {eventargs.PinNumber}:{eventargs.ChangeType}");
     }
 
-    public void PulseRelay(TimeSpan pulseDelay)
+    public void ToggleRelay(TimeSpan toggleDelay)
     {
         _gpioController.Write(PinNumber, PinValue.High);
-        Thread.Sleep(pulseDelay);
+        Thread.Sleep(toggleDelay);
         _gpioController.Write(PinNumber, PinValue.Low);
     }
 

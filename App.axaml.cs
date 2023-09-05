@@ -48,7 +48,7 @@ public partial class App : Application
         var sensorService = Locator.Current.GetService<SensorService>();
         var relayService = Locator.Current.GetService<RelayService>();
 
-        relayService?.PulseRelay(new TimeSpan(0, 0, 0, 1));
+        relayService?.ToggleRelay(new TimeSpan(0, 0, 0, 10));
         base.OnFrameworkInitializationCompleted();
     }
 }
