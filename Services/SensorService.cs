@@ -30,8 +30,9 @@ public class SensorService
     {
         while (!token.IsCancellationRequested)
         {
-            var sensor1 = await TemperatureDevice1?.ReadTemperatureAsync()!;
-            var sensor2 = await TemperatureDevice2?.ReadTemperatureAsync()!;
+            Console.WriteLine("Inside the While Loop, repeating sensor service every 20 seconds");
+            var sensor1 = await TemperatureDevice1.ReadTemperatureAsync()!;
+            var sensor2 = await TemperatureDevice2.ReadTemperatureAsync()!;
             Console.WriteLine($"Sensor 1: {sensor1.DegreesFahrenheit}");
             Console.WriteLine($"Sensor 2: {sensor2.DegreesFahrenheit}");
             await Task.Delay(new TimeSpan(0, 0, 0, 20));

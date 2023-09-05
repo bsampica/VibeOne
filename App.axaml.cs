@@ -53,7 +53,11 @@ public partial class App : Application
     private void StartupSensorTest()
     {
         var sensorService = Locator.Current.GetService<SensorService>();
-        sensorService?.StartTemperatureMonitorAsync();
+        Task.Run(() =>
+        {
+            Console.WriteLine("Starting the Sensor Service");
+            sensorService?.StartTemperatureMonitorAsync();
+        });
     }
 
     private void StartupRelayTest()
