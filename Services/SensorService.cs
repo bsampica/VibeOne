@@ -2,21 +2,52 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Device.Gpio;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Avalonia.Threading;
 using Iot.Device.OneWire;
 
 namespace VibeOne.Services;
 
-public class SensorService
+public class SensorService : INotifyPropertyChanged
 {
     private const string Device1Id = "28-03139794691e";
     private const string Device2Id = "28-031397944f32";
 
     public OneWireThermometerDevice? TemperatureDevice1 { get; init; }
     public OneWireThermometerDevice? TemperatureDevice2 { get; init; }
+
+    private double _temp1;
+
+    public double TemperatureOne
+    {
+        get
+        {
+            return _temp1;
+        }
+        set
+        {
+            SetField(ref _temp1, value);
+        }
+    }
+
+    private double _temp2;
+
+    public double TemperatureTwo
+    {
+        get
+        {
+            return _temp2;
+        }
+        set
+        {
+            SetField(ref _temp2, value);
+        }
+    }
 
     public SensorService()
     {
@@ -30,12 +61,29 @@ public class SensorService
     {
         while (true)
         {
-            Console.WriteLine("Inside the While Loop, repeating sensor service every 20 seconds");
             var sensor1 = await TemperatureDevice1.ReadTemperatureAsync()!;
             var sensor2 = await TemperatureDevice2.ReadTemperatureAsync()!;
             Console.WriteLine($"Sensor 1: {sensor1.DegreesFahrenheit}");
             Console.WriteLine($"Sensor 2: {sensor2.DegreesFahrenheit}");
+            TemperatureOne = sensor1.DegreesFahrenheit;
+            TemperatureTwo = sensor2.DegreesFahrenheit;
+
             await Task.Delay(new TimeSpan(0, 0, 0, 20));
         }
+    }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        field = value;
+        OnPropertyChanged(propertyName);
+        return true;
     }
 }

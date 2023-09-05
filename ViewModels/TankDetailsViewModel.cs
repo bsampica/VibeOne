@@ -41,6 +41,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
             return Disposable.Empty;
         });
 
+    private SensorService _sensorService;
+
     [Reactive] public TankModel SelectedTankModel { get; set; }
 
     [Reactive] public List<ISeries>? Series { get; set; }
@@ -56,6 +58,16 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         var tankService = Locator.Current.GetService<TankService>();
         tankService?.MockData();
         SelectedTankModel = tankService?.Tanks!.First()!;
+
+        _sensorService =
+            Locator.Current.GetService<SensorService>() ??
+            new SensorService(); // TODO: Figure out how to handle null locator calls.
+
+        _sensorService.PropertyChanged += (sender, args) =>
+        {
+            Console.WriteLine($"Temperature Changed in Service: {args.PropertyName}");
+        };
+
         BuildChartSeriesData();
     }
 
