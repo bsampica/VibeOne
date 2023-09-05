@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using Iot.Device.Display;
 using LiveChartsCore;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.Kernel;
@@ -47,8 +48,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
     [Reactive] public List<ISeries>? Series { get; set; }
 
-    [Reactive] public float Tank1Temperature { get; set; } = 0.00f;
-    [Reactive] public float Tank2Temperature { get; set; } = 0.00f;
+    [Reactive] public double Tank1Temperature { get; set; } = 0.00f;
+    [Reactive] public double Tank2Temperature { get; set; } = 0.00f;
     [Reactive] public float Tank3Temperature { get; set; } = 0.00f;
 
     public TankDetailsViewModel(IScreen? hostScreen = null)
@@ -65,7 +66,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
         _sensorService.PropertyChanged += (sender, args) =>
         {
-            Console.WriteLine($"Temperature Changed in Service: {args.PropertyName}");
+            Tank1Temperature = _sensorService.TemperatureOne;
+            Tank2Temperature = _sensorService.TemperatureTwo;
         };
 
         BuildChartSeriesData();
