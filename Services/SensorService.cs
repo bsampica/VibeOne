@@ -60,8 +60,8 @@ public class SensorService : INotifyPropertyChanged
 
         TemperatureDevice1 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device1Id);
         TemperatureDevice2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
-        IsMonitorRunning = new BehaviorSubject<bool>(false).Publish();
-        MainTankTemperature = new BehaviorSubject<double>(999.00).Publish();
+        IsMonitorRunning = new BehaviorSubject<bool>(false);
+        MainTankTemperature = new BehaviorSubject<double>(999.00);
     }
 
     public async Task StartTemperatureMonitorAsync()
@@ -73,7 +73,7 @@ public class SensorService : INotifyPropertyChanged
             var sensor2 = await TemperatureDevice2?.ReadTemperatureAsync()!;
             TemperatureOne = sensor1.DegreesFahrenheit;
             TemperatureTwo = sensor2.DegreesFahrenheit;
-            
+
             await Task.Delay(new TimeSpan(0, 0, 0, 20));
         }
     }
