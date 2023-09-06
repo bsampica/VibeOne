@@ -70,6 +70,6 @@ public partial class App : Application
     private void StartupRelayTest()
     {
         var relayService = Locator.Current.GetService<RelayService>();
-        relayService?.ToggleRelayAsync(new TimeSpan(0, 0, 0, 10));
+        relayService?.TriggerRelayAsync();
     }
 }
