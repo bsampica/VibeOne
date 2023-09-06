@@ -22,7 +22,7 @@ namespace VibeOne.ViewModels;
 public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 {
     public string? UrlPathSegment { get; } = "/tankdetails";
-    public IScreen HostScreen { get; }
+    public IScreen? HostScreen { get; }
     private readonly RoutingState _router = Locator.Current.GetService<RoutingState>()!;
     public ReactiveCommand<Unit, IRoutableViewModel?> NavigateBack { get; }
 
@@ -50,7 +50,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
     [Reactive] public double Tank2Temperature { get; set; }
     [Reactive] public double Tank3Temperature { get; set; }
 
-    public TankDetailsViewModel(IScreen hostScreen)
+    public TankDetailsViewModel(IScreen? hostScreen = null)
     {
         HostScreen = hostScreen;
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
