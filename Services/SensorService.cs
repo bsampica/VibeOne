@@ -67,7 +67,7 @@ public class SensorService : INotifyPropertyChanged
 
     public async Task StartTemperatureMonitorAsync()
     {
-        IsMonitorRunning.Publish(true);
+        IsMonitorRunning = new BehaviorSubject<bool>(true);
         while (true)
         {
             var sensor1 = await TemperatureDevice1.ReadTemperatureAsync()!;
@@ -76,7 +76,7 @@ public class SensorService : INotifyPropertyChanged
             // Console.WriteLine($"Sensor 2: {sensor2.DegreesFahrenheit}");
             TemperatureOne = sensor1.DegreesFahrenheit;
             TemperatureTwo = sensor2.DegreesFahrenheit;
-            MainTankTemperature.Publish(sensor1.DegreesFahrenheit);
+            MainTankTemperature = new BehaviorSubject<double>(sensor1.DegreesFahrenheit);
 
             await Task.Delay(new TimeSpan(0, 0, 0, 20));
         }

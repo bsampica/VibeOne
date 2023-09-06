@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.ComponentModel;
+using ReactiveUI;
 using VibeOne.Services;
 
 namespace VibeOne.Operations;
@@ -24,6 +25,11 @@ public class Co2TankOperation : IAutoOperation
     public Task<bool> BeginOperation(Action callbackWhenConditionMet)
     {
         Console.WriteLine("Starting the CO2 Tank Service: BeginOperation with callback");
+        _sensorService.IsMonitorRunning.Subscribe(obs =>
+        {
+            Console.WriteLine($" Is Monitor Running Changed Value: {obs}");
+        });
+
         _sensorService.IsMonitorRunning.Subscribe(b =>
         {
             Console.WriteLine($"IsMonitorRunning Observer published value: {b}");
