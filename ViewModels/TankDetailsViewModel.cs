@@ -61,9 +61,9 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         SelectedTankModel = tankService?.Tanks!.First()!;
 
         _co2Service = Locator.Current.GetService<IAutoOperation>();
-        Task.Run(() =>
+        Task.Run(async () =>
         {
-            _co2Service?.BeginOperation(() => { });
+            await _co2Service?.BeginOperation(() => { })!;
         });
 
 
