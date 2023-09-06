@@ -21,7 +21,7 @@ public class Co2TankOperation : IAutoOperation
     }
 
 
-    public async Task<bool> BeginOperation(Action callbackWhenConditionMet)
+    public Task<bool> BeginOperation(Action callbackWhenConditionMet)
     {
         _sensorService.IsMonitorRunning.Subscribe(b =>
         {
@@ -33,6 +33,6 @@ public class Co2TankOperation : IAutoOperation
             Console.WriteLine($"CO2 Service detected temp change on main tank: {temp}");
         });
 
-        return true;
+        return Task.FromResult(true);
     }
 }
