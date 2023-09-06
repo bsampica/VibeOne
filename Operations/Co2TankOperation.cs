@@ -14,7 +14,7 @@ public class Co2TankOperation : IAutoOperation
     private readonly TankService _tankService;
     private readonly RelayService _relayService;
 
-    public bool IsAttachedAndRunning = false;
+    public bool IsAttachedAndRunning { get; } = false;
 
     public Co2TankOperation(SensorService sensorService, TankService tankService, RelayService relayService)
     {

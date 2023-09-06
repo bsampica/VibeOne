@@ -40,7 +40,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         });
 
     private readonly SensorService _sensorService;
-    public readonly Co2TankOperation Co2Service;
+    public readonly IAutoOperation Co2Service;
 
     [Reactive] public bool OperationAttached { get; set; }
     [Reactive] public TankModel SelectedTankModel { get; set; }

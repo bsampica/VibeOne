@@ -6,5 +6,6 @@ namespace VibeOne.Operations;
 
 public interface IAutoOperation
 {
+    bool IsAttachedAndRunning { get; }
     Task<bool> BeginOperation();
 }
