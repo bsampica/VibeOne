@@ -23,7 +23,6 @@ public class SensorService : INotifyPropertyChanged
     public IObservable<bool> IsMonitorRunning { get; set; }
     public IObservable<double> MainTankTemperature { get; set; }
 
-
     private OneWireThermometerDevice? TemperatureDevice1 { get; init; }
     private OneWireThermometerDevice? TemperatureDevice2 { get; init; }
 
@@ -61,8 +60,8 @@ public class SensorService : INotifyPropertyChanged
 
         TemperatureDevice1 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device1Id);
         TemperatureDevice2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
-        IsMonitorRunning = new BehaviorSubject<bool>(false);
-        MainTankTemperature = new BehaviorSubject<double>(999.00);
+        IsMonitorRunning = new BehaviorSubject<bool>(false).Publish();
+        MainTankTemperature = new BehaviorSubject<double>(999.00).Publish();
     }
 
     public async Task StartTemperatureMonitorAsync()
@@ -70,14 +69,11 @@ public class SensorService : INotifyPropertyChanged
         IsMonitorRunning = new BehaviorSubject<bool>(true);
         while (true)
         {
-            var sensor1 = await TemperatureDevice1.ReadTemperatureAsync()!;
-            var sensor2 = await TemperatureDevice2.ReadTemperatureAsync()!;
-            // Console.WriteLine($"Sensor 1: {sensor1.DegreesFahrenheit}");
-            // Console.WriteLine($"Sensor 2: {sensor2.DegreesFahrenheit}");
+            var sensor1 = await TemperatureDevice1?.ReadTemperatureAsync()!;
+            var sensor2 = await TemperatureDevice2?.ReadTemperatureAsync()!;
             TemperatureOne = sensor1.DegreesFahrenheit;
             TemperatureTwo = sensor2.DegreesFahrenheit;
-            MainTankTemperature = new BehaviorSubject<double>(sensor1.DegreesFahrenheit);
-
+            
             await Task.Delay(new TimeSpan(0, 0, 0, 20));
         }
     }
