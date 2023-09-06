@@ -35,9 +35,4 @@ public class Co2TankOperation : IAutoOperation
 
         return true;
     }
-
-    private void SensorServiceOnPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        Console.WriteLine($"Property Changed: {e.PropertyName}");
-    }
 }

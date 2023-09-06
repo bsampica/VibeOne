@@ -17,6 +17,7 @@ using ReactiveUI.Fody.Helpers;
 using SkiaSharp;
 using Splat;
 using VibeOne.Models;
+using VibeOne.Operations;
 using VibeOne.Services;
 
 namespace VibeOne.ViewModels;
@@ -24,7 +25,7 @@ namespace VibeOne.ViewModels;
 public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 {
     public string? UrlPathSegment { get; } = "/tankdetails";
-    public IScreen? HostScreen { get; }
+    public IScreen HostScreen { get; }
     private readonly RoutingState _router = Locator.Current.GetService<RoutingState>()!;
     public ReactiveCommand<Unit, IRoutableViewModel?> NavigateBack { get; }
 
@@ -57,6 +58,9 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         var tankService = Locator.Current.GetService<TankService>();
         tankService?.MockData();
         SelectedTankModel = tankService?.Tanks!.First()!;
+
+        var co2Service = Locator.Current.GetService<Co2TankOperation>();
+        co2Service?.BeginOperation(() => { });
 
         _sensorService =
             Locator.Current.GetService<SensorService>() ??
