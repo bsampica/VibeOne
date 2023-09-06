@@ -43,6 +43,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         });
 
     private readonly SensorService _sensorService;
+    private readonly IAutoOperation _co2Service;
 
     [Reactive] public TankModel SelectedTankModel { get; set; }
     [Reactive] public List<ISeries>? Series { get; set; }
@@ -59,8 +60,12 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         tankService?.MockData();
         SelectedTankModel = tankService?.Tanks!.First()!;
 
-        var co2Service = Locator.Current.GetService<IAutoOperation>();
-        co2Service.BeginOperation(() => { });
+        _co2Service = Locator.Current.GetService<IAutoOperation>();
+        Task.Run(async () =>
+        {
+            await _co2Service?.BeginOperation(() => { });
+        });
+
 
         _sensorService =
             Locator.Current.GetService<SensorService>() ??
