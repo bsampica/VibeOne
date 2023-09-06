@@ -6,5 +6,5 @@ namespace VibeOne.Operations;
 
 public interface IAutoOperation
 {
-    Task<bool> BeginOperation(Action callbackWhenConditionMet);
+    Task<bool> BeginOperation();
 }
