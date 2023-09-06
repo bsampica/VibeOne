@@ -5,16 +5,13 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using Iot.Device.Display;
 using LiveChartsCore;
 using LiveChartsCore.Drawing;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
-using LiveChartsCore.SkiaSharpView.Painting;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using SkiaSharp;
 using Splat;
 using VibeOne.Models;
 using VibeOne.Operations;
@@ -43,8 +40,9 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         });
 
     private readonly SensorService _sensorService;
-    private readonly IAutoOperation _co2Service;
+    public readonly Co2TankOperation Co2Service;
 
+    [Reactive] public bool OperationAttached { get; set; }
     [Reactive] public TankModel SelectedTankModel { get; set; }
     [Reactive] public List<ISeries>? Series { get; set; }
     [Reactive] public double MainTankTemperature { get; set; }
@@ -52,18 +50,17 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
     [Reactive] public double Tank2Temperature { get; set; }
     [Reactive] public double Tank3Temperature { get; set; }
 
-    public TankDetailsViewModel(IScreen? hostScreen = null)
+    public TankDetailsViewModel(IScreen hostScreen)
     {
         HostScreen = hostScreen;
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
         var tankService = Locator.Current.GetService<TankService>();
         tankService?.MockData();
         SelectedTankModel = tankService?.Tanks!.First()!;
-
-        _co2Service = Locator.Current.GetService<IAutoOperation>()!;
+        Co2Service = Locator.Current.GetService<Co2TankOperation>()!;
         Task.Run(async () =>
         {
-            await _co2Service?.BeginOperation()!;
+            await Co2Service?.BeginOperation()!;
         });
 
 
@@ -73,13 +70,19 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
         _sensorService.PropertyChanged += HandleTemperatureChange;
         BuildChartSeriesData();
+
+        if (Co2Service.IsAttachedAndRunning)
+        {
+            // HANDLE THE UI OR WHATEVER HERE TO INDICATE THERE IS AN OPERATION ATTACHED
+        }
+        
     }
 
     private void HandleTemperatureChange(object? sender, PropertyChangedEventArgs args)
     {
-        Tank1Temperature = _sensorService.TemperatureOne - 10.7d;
+        Tank1Temperature = _sensorService.TemperatureOne - 10.7d; // TODO:  Dummy Data should be fixed
         Tank2Temperature = _sensorService.TemperatureTwo;
-        Tank3Temperature = _sensorService.TemperatureTwo + 10.2d;
+        Tank3Temperature = _sensorService.TemperatureTwo + 10.2d; // TODO: Dummy Data should be fixed
         MainTankTemperature = _sensorService.TemperatureOne;
     }
 
@@ -97,7 +100,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
         var valuesCopy = values1
             .OrderByDescending(ob => ob)
-            .Select(s => float.Parse(s.ToString().Substring(2, 2)));
+            .Select(s => float.Parse(s.ToString(CultureInfo.CurrentCulture)
+                .Substring(2, 2)));
 
 
         var columnSeries1 = new ColumnSeries<float>

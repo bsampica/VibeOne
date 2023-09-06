@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using Avalonia.Threading;
 using Iot.Device.OneWire;
@@ -20,11 +21,11 @@ public class SensorService : INotifyPropertyChanged
     private const string Device1Id = "28-03139794691e";
     private const string Device2Id = "28-031397944f32";
 
-    public BehaviorSubject<bool> IsMonitorRunning { get; set; }
-    public BehaviorSubject<double> MainTankTemperature { get; set; }
+    public BehaviorSubject<bool> IsMonitorRunning { get; } = new BehaviorSubject<bool>(false);
+    public BehaviorSubject<double> MainTankTemperature { get; } = new BehaviorSubject<double>(9999.99);
 
-    private OneWireThermometerDevice? TemperatureDevice1 { get; init; }
-    private OneWireThermometerDevice? TemperatureDevice2 { get; init; }
+    private OneWireThermometerDevice? TemperatureDevice1 { get; }
+    private OneWireThermometerDevice? TemperatureDevice2 { get; }
 
     private double _temp1;
 
@@ -39,7 +40,6 @@ public class SensorService : INotifyPropertyChanged
             SetField(ref _temp1, value);
         }
     }
-
     private double _temp2;
 
     public double TemperatureTwo
@@ -60,13 +60,11 @@ public class SensorService : INotifyPropertyChanged
 
         TemperatureDevice1 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device1Id);
         TemperatureDevice2 = OneWireThermometerDevice.EnumerateDevices().First(ed => ed.DeviceId == Device2Id);
-        IsMonitorRunning = new BehaviorSubject<bool>(false);
-        MainTankTemperature = new BehaviorSubject<double>(9999.99);
     }
 
     public async Task StartTemperatureMonitorAsync()
     {
-        MainTankTemperature.OnNext(22);
+        MainTankTemperature.OnNext(9999.99);
         while (true)
         {
             var sensor1 = await TemperatureDevice1?.ReadTemperatureAsync()!;
@@ -74,8 +72,8 @@ public class SensorService : INotifyPropertyChanged
             TemperatureOne = sensor1.DegreesFahrenheit;
             TemperatureTwo = sensor2.DegreesFahrenheit;
             MainTankTemperature.OnNext(sensor1.DegreesFahrenheit);
-            
-            await Task.Delay(new TimeSpan(0, 0, 0, 20));
+
+            await Task.Delay(5000); // TEMPERATURE CHECK RESOLUTION, DEFAULT IS 10 SECONDS
         }
     }
 
