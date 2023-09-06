@@ -11,17 +11,12 @@ public class RelayService : IDisposable
 {
     private const int PinNumber = 21;
     private readonly GpioController _gpioController = new GpioController();
-    private const string Ready = "READY ✅";
-    private const string Alert = "ALERT 🚨";
-
-    private readonly PinValue _pinValue;
 
     public RelayService()
     {
         _gpioController.OpenPin(PinNumber, PinMode.Output, PinValue.Low);
         _gpioController.RegisterCallbackForPinValueChangedEvent(PinNumber, PinEventTypes.Falling | PinEventTypes.Rising,
             OnPinEvent);
-        _pinValue = PinValue.Low;
     }
 
     private void OnPinEvent(object sender, PinValueChangedEventArgs eventargs)
@@ -29,20 +24,33 @@ public class RelayService : IDisposable
         Console.WriteLine($"PIN EVENT: {eventargs.PinNumber}:{eventargs.ChangeType}");
     }
 
-    public void ToggleRelay(TimeSpan toggleDelay)
+    public void TriggerRelay()
     {
         _gpioController.Write(PinNumber, PinValue.High);
-        Thread.Sleep(toggleDelay);
+        Thread.Sleep(1000);
         _gpioController.Write(PinNumber, PinValue.Low);
     }
-
-    public async Task ToggleRelayAsync(TimeSpan toggleDelay)
+    
+    public async Task<bool> TriggerRelayAsync()
     {
         _gpioController.Write(PinNumber, PinValue.High);
-        await Task.Delay(toggleDelay);
+        await Task.Delay(1000);
         _gpioController.Write(PinNumber, PinValue.Low);
+        return true;
     }
 
+    public void ResetRelay()
+    {
+        //TODO: Figure out how to track and make sure the relay will be closed.
+        Thread.Sleep(1000);
+    }
+
+    public async Task<bool> ResetRelayAsync()
+    {
+        //TODO: Figure out how to track and make sure the relay will be closed
+        await Task.Delay(1000);
+        return true;
+    }
 
     public void Dispose()
     {
