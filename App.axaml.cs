@@ -7,6 +7,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ReactiveUI;
 using Splat;
+using VibeOne.Operations;
 using VibeOne.Services;
 using VibeOne.ViewModels;
 using VibeOne.Views;
@@ -24,10 +25,16 @@ public partial class App : Application
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
-        Locator.CurrentMutable.RegisterLazySingleton(() => new RoutingState());
-        Locator.CurrentMutable.RegisterLazySingleton(() => new TankService());
-        Locator.CurrentMutable.RegisterLazySingleton(() => new SensorService());
-        Locator.CurrentMutable.RegisterLazySingleton(() => new RelayService());
+        // Locator.CurrentMutable.RegisterLazySingleton(() => new RoutingState());
+        // Locator.CurrentMutable.RegisterLazySingleton(() => new TankService());
+        // Locator.CurrentMutable.RegisterLazySingleton(() => new SensorService());
+        // Locator.CurrentMutable.RegisterLazySingleton(() => new RelayService());
+        SplatRegistrations.RegisterLazySingleton<RoutingState>();
+        SplatRegistrations.RegisterLazySingleton<TankService>();
+        SplatRegistrations.RegisterLazySingleton<SensorService>();
+        SplatRegistrations.RegisterLazySingleton<RelayService>();
+        SplatRegistrations.RegisterLazySingleton<IAutoOperation, Co2TankOperation>();
+        SplatRegistrations.SetupIOC();
     }
 
     public override void OnFrameworkInitializationCompleted()
