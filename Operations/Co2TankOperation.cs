@@ -14,6 +14,8 @@ public class Co2TankOperation : IAutoOperation
     private readonly TankService _tankService;
     private readonly RelayService _relayService;
 
+    public bool IsAttachedAndRunning = false;
+
     public Co2TankOperation(SensorService sensorService, TankService tankService, RelayService relayService)
     {
         _sensorService = sensorService;
@@ -41,18 +43,26 @@ public class Co2TankOperation : IAutoOperation
         {
             case >= 39:
                 // DO NOTHING, TEMP IS ABOVE OPERATION
-                Console.WriteLine("TEMP IS ABOVE OR EQUAL TO 39.  Closing or maintaining closed relay.");
-                await _relayService.ResetRelayAsync();  // Reset the relay to default
+                Console.WriteLine("TEMP IS ABOVE OR EQUAL TO 39.");
+                if (_relayService.SolenoidOpen.Value)
+                {
+                    Console.WriteLine("RELAY IS OPEN:  CLOSING GAS");
+                    await _relayService.TriggerRelayAsync();
+                    break;
+                }
+
+                Console.WriteLine("RELAY IS CLOSED: NO ACTION REQUIRED");
                 break;
             case < 39:
                 // WE ARE NOW IN THE RANGE TO OPEN THE VALVE
-                Console.WriteLine($"OPENING CO2 RELAY - WILL MONITOR TEMP.");
-                Console.WriteLine($"AT 39F THE RELAY OPENS.  ABOVE 40:  IT WILL CLOSE AGAIN");
-                await _relayService.TriggerRelayAsync();
-                break;
-            default:
-                // SOMETHING WENT WRONG, CLOSE THE RELAY
-                await _relayService.ResetRelayAsync();
+                Console.WriteLine("TEMPERATURE REACHED FOR C02: 39f");
+                if (!_relayService.SolenoidOpen.Value)
+                {
+                    Console.WriteLine("VALUE IS CLOSED:  OPENING FOR C02");
+                    await _relayService.TriggerRelayAsync();
+                    break;
+                }
+                Console.WriteLine("VALVE IS OPEN:  NO ACTION REQUIRED");
                 break;
         }
     }
