@@ -59,8 +59,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         tankService?.MockData();
         SelectedTankModel = tankService?.Tanks!.First()!;
 
-        var co2Service = Locator.Current.GetService<Co2TankOperation>();
-        co2Service?.BeginOperation(() => { });
+        var co2Service = Locator.Current.GetService<IAutoOperation>();
+        co2Service.BeginOperation(() => { });
 
         _sensorService =
             Locator.Current.GetService<SensorService>() ??

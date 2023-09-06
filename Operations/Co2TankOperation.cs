@@ -23,6 +23,7 @@ public class Co2TankOperation : IAutoOperation
 
     public Task<bool> BeginOperation(Action callbackWhenConditionMet)
     {
+        Console.WriteLine("Starting the CO2 Tank Service: BeginOperation with callback");
         _sensorService.IsMonitorRunning.Subscribe(b =>
         {
             Console.WriteLine($"IsMonitorRunning Observer published value: {b}");
