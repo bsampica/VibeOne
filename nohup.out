@@ -1,0 +1,6 @@
+Unhandled exception. System.InvalidOperationException: Cannot read keys when either application does not have a console or when console input has been redirected. Try Console.Read.
+   at System.ConsolePal.ReadKey(Boolean intercept)
+   at VibeOne.Program.<>c.<SilenceConsole>b__1_0() in /home/pi/VibeOne/Program.cs:line 41
+Unhandled exception. System.InvalidOperationException: Cannot read keys when either application does not have a console or when console input has been redirected. Try Console.Read.
+   at System.ConsolePal.ReadKey(Boolean intercept)
+   at VibeOne.Program.<>c.<SilenceConsole>b__1_0() in /home/pi/VibeOne/Program.cs:line 41
