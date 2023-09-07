@@ -5,7 +5,6 @@
              xmlns:avalonia="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              xmlns:viewModels="clr-namespace:VibeOne.ViewModels"
-             xmlns:skiaSharpView="clr-namespace:LiveChartsCore.SkiaSharpView;assembly=LiveChartsCore.SkiaSharpView"
              mc:Ignorable="d"
              d:DesignHeight="400" d:DesignWidth="600"
              x:Class="VibeOne.Views.DetailsTempPanel"
@@ -26,10 +25,10 @@
                                    Opacity=".7"
                                    VerticalAlignment="Center" />
             <TextBlock VerticalAlignment="Center"
-                       Text="{Binding SelectedTankModel.Temperature, FallbackValue=--, StringFormat=N1}"
-                       FontSize="120" />
+                       Text="{Binding MainTankTemperature, FallbackValue=--, StringFormat=N1}"
+                       FontSize="95" />
             <TextBlock Text="&#186;F"
-                       FontSize="50"
+                       FontSize="30"
                        Margin="0,10,0,0"
                        Opacity=".5" />
         </StackPanel>
@@ -78,7 +77,7 @@
                       RowDefinitions="Auto, Auto, *">
                     <TextBlock Text="TANK  |  1" />
                     <Panel Grid.Row="1">
-                        <TextBlock Grid.Row="1" Text="{Binding Tank1Temperature, FallbackValue=--, StringFormat=N1}" />
+                        <TextBlock Text="{Binding Tank1Temperature, FallbackValue=--, StringFormat=N1}" />
                         <Border Background="Transparent">
                             <TextBlock Text="&#186; F" />
                         </Border>
@@ -95,7 +94,7 @@
                       RowDefinitions="Auto, Auto, *">
                     <TextBlock Text="TANK  |  2" />
                     <Panel Grid.Row="1">
-                        <TextBlock Grid.Row="1" Text="{Binding Tank2Temperature, FallbackValue=--, StringFormat=N1}" />
+                        <TextBlock Text="{Binding Tank2Temperature, FallbackValue=--, StringFormat=N1}" />
                         <Border Background="Transparent">
                             <TextBlock Text="&#186; F" />
                         </Border>
@@ -111,7 +110,7 @@
                       RowDefinitions="Auto, Auto, *">
                     <TextBlock Text="TANK  |  3" />
                     <Panel Grid.Row="1">
-                        <TextBlock Grid.Row="1" Text="{Binding Tank3Temperature, FallbackValue=--, StringFormat=N1}" />
+                        <TextBlock Text="{Binding Tank3Temperature, FallbackValue=--, StringFormat=N1}" />
                         <Border Background="Transparent">
                             <TextBlock Text="&#186; F" />
                         </Border>

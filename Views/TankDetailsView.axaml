@@ -24,7 +24,7 @@
                 <avalonia:MaterialIcon Kind="ArrowBack"></avalonia:MaterialIcon>
             </Button.Content>
         </Button>
-        <TextBlock Text="PLACEHOLDER"
+        <TextBlock Text="BLUELIGHT GIN  •••  VIBE HARD SELTZER"
                    Grid.Row="0"
                    Grid.Column="1"
                    HorizontalAlignment="Center"

@@ -16,7 +16,7 @@
                    FontWeight="Thin"
                    Foreground="MediumSpringGreen" />
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBlock Text="{Binding CurrentTime^, StringFormat=h:mm:ss, FallbackValue=8:10:22}" FontSize="65" />
+            <TextBlock Text="{Binding CurrentTime^, StringFormat=h:mm:ss, FallbackValue=00:00:00}" FontSize="65" />
             <TextBlock
                 Text="{Binding CurrentTime^, StringFormat=tt, FallbackValue=PM}"
                 FontSize="65"
