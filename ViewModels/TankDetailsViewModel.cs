@@ -1,4 +1,9 @@
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reactive;
@@ -9,12 +14,10 @@ using LiveChartsCore.Drawing;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
-using LiveChartsCore.SkiaSharpView.Painting;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using SkiaSharp;
 using Splat;
-using VibeOne.Models;
+using VibeOne.Operations;
 using VibeOne.Services;
 
 namespace VibeOne.ViewModels;
@@ -39,13 +42,15 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
             return Disposable.Empty;
         });
 
-    [Reactive] public TankModel SelectedTankModel { get; set; }
+    private readonly SensorService _sensorService;
+    public readonly IAutoOperation Co2Service;
 
-    [Reactive] public List<ISeries> Series { get; set; }
 
-    [Reactive] public float Tank1Temperature { get; set; } = 0.00f;
-    [Reactive] public float Tank2Temperature { get; set; } = 0.00f;
-    [Reactive] public float Tank3Temperature { get; set; } = 0.00f;
+    [Reactive] public List<ISeries>? Series { get; set; }
+    [Reactive] public double MainTankTemperature { get; set; }
+    [Reactive] public double Tank1Temperature { get; set; }
+    [Reactive] public double Tank2Temperature { get; set; }
+    [Reactive] public double Tank3Temperature { get; set; }
 
     public TankDetailsViewModel(IScreen hostScreen)
     {
@@ -53,8 +58,35 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
         var tankService = Locator.Current.GetService<TankService>();
         tankService?.MockData();
-        SelectedTankModel = tankService?.Tanks.First()!;
+        Co2Service = Locator.Current.GetService<IAutoOperation>()!;
+        Task.Run(async () =>
+        {
+            await Co2Service.BeginOperation();
+        });
+
+
+        _sensorService =
+            Locator.Current.GetService<SensorService>() ??
+            new SensorService(); // TODO: Figure out how to handle null locator calls.
+
+        _sensorService.PropertyChanged += HandleTemperatureChange;
+
+        Task.Run(async () => await _sensorService.StartTemperatureMonitorAsync());
+
         BuildChartSeriesData();
+
+        if (Co2Service.IsAttachedAndRunning)
+        {
+            // HANDLE THE UI OR WHATEVER HERE TO INDICATE THERE IS AN OPERATION ATTACHED
+        }
+    }
+
+    private void HandleTemperatureChange(object? sender, PropertyChangedEventArgs args)
+    {
+        Tank1Temperature = _sensorService.TemperatureOne - 10.7d; // TODO:  Dummy Data should be fixed
+        Tank2Temperature = _sensorService.TemperatureTwo;
+        Tank3Temperature = _sensorService.TemperatureTwo + 10.2d; // TODO: Dummy Data should be fixed
+        MainTankTemperature = _sensorService.TemperatureOne;
     }
 
     private void BuildChartSeriesData()
@@ -71,7 +103,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
 
         var valuesCopy = values1
             .OrderByDescending(ob => ob)
-            .Select(s => float.Parse(s.ToString().Substring(2, 2)));
+            .Select(s => float.Parse(s.ToString(CultureInfo.CurrentCulture)
+                .Substring(2, 2)));
 
 
         var columnSeries1 = new ColumnSeries<float>
