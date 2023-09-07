@@ -17,7 +17,6 @@ using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using Splat;
-using VibeOne.Models;
 using VibeOne.Operations;
 using VibeOne.Services;
 
@@ -46,8 +45,7 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
     private readonly SensorService _sensorService;
     public readonly IAutoOperation Co2Service;
 
-    [Reactive] public bool OperationAttached { get; set; }
-    [Reactive] public TankModel SelectedTankModel { get; set; }
+
     [Reactive] public List<ISeries>? Series { get; set; }
     [Reactive] public double MainTankTemperature { get; set; }
     [Reactive] public double Tank1Temperature { get; set; }
@@ -60,11 +58,10 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
         NavigateBack = ReactiveCommand.CreateFromObservable(() => _router.NavigateBack.Execute());
         var tankService = Locator.Current.GetService<TankService>();
         tankService?.MockData();
-        SelectedTankModel = tankService?.Tanks!.First()!;
         Co2Service = Locator.Current.GetService<IAutoOperation>()!;
         Task.Run(async () =>
         {
-            await Co2Service?.BeginOperation()!;
+            await Co2Service.BeginOperation();
         });
 
 
@@ -73,7 +70,8 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
             new SensorService(); // TODO: Figure out how to handle null locator calls.
 
         _sensorService.PropertyChanged += HandleTemperatureChange;
-        _sensorService.StartTemperatureMonitorAsync();
+
+        Task.Run(async () => await _sensorService.StartTemperatureMonitorAsync());
 
         BuildChartSeriesData();
 
