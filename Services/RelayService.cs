@@ -5,8 +5,6 @@
 using System.Device.Gpio;
 using System.Reactive.Subjects;
 using System.Threading;
-using UnitsNet;
-
 namespace VibeOne.Services;
 
 public class RelayService : IDisposable
@@ -24,7 +22,7 @@ public class RelayService : IDisposable
 
     private void OnPinEvent(object sender, PinValueChangedEventArgs eventargs)
     {
-        Console.WriteLine($"PIN EVENT: {eventargs.PinNumber}:{eventargs.ChangeType}");
+        // PIN EVENT HAPPENED, TRACK AND REACT
     }
 
     public void TriggerRelay()

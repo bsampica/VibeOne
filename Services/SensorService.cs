@@ -4,14 +4,10 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Device.Gpio;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
-using Avalonia.Threading;
 using Iot.Device.OneWire;
 
 namespace VibeOne.Services;
@@ -40,6 +36,7 @@ public class SensorService : INotifyPropertyChanged
             SetField(ref _temp1, value);
         }
     }
+
     private double _temp2;
 
     public double TemperatureTwo
@@ -54,6 +51,8 @@ public class SensorService : INotifyPropertyChanged
         }
     }
 
+    private readonly CancellationTokenSource _token = new CancellationTokenSource();
+
     public SensorService()
     {
         if (DeviceInstance.IsRPI == false) return; // Dont load the sensors if we arent on a raspberry pi
@@ -65,7 +64,7 @@ public class SensorService : INotifyPropertyChanged
     public async Task StartTemperatureMonitorAsync()
     {
         MainTankTemperature.OnNext(9999.99);
-        while (true)
+        while (!_token.IsCancellationRequested)
         {
             var sensor1 = await TemperatureDevice1?.ReadTemperatureAsync()!;
             var sensor2 = await TemperatureDevice2?.ReadTemperatureAsync()!;
@@ -73,7 +72,8 @@ public class SensorService : INotifyPropertyChanged
             TemperatureTwo = sensor2.DegreesFahrenheit;
             MainTankTemperature.OnNext(sensor1.DegreesFahrenheit);
 
-            await Task.Delay(5000); // TEMPERATURE CHECK RESOLUTION, DEFAULT IS 10 SECONDS
+            await Task.Delay(
+                1000); // TEMPERATURE CHECK RESOLUTION, DEFAULT IS 10 SECONDS, // SETTING TO LOWER THAN 1 SECOND MAY HAVE BAD RESULTS
         }
     }
 

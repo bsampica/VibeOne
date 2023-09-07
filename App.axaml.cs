@@ -1,7 +1,8 @@
-// REACTIVE UI SPLAT LOCATOR
-// https://github.com/AvaloniaUI/Avalonia/blob/master/samples/ReactiveUIDemo/App.axaml.cs
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
-using System.Reflection;
+using System.Threading;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -17,10 +18,10 @@ namespace VibeOne;
 
 public static class DeviceInstance
 {
-    public static bool IsRPI { get; set; } = false;
+    public static bool IsRPI { get; set; }
 }
 
-public partial class App : Application
+public class App : Application
 {
     public override void Initialize()
     {
@@ -29,6 +30,7 @@ public partial class App : Application
         // Locator.CurrentMutable.RegisterLazySingleton(() => new TankService());
         // Locator.CurrentMutable.RegisterLazySingleton(() => new SensorService());
         // Locator.CurrentMutable.RegisterLazySingleton(() => new RelayService());
+        Locator.CurrentMutable.RegisterLazySingleton(() => new CancellationTokenSource());
         SplatRegistrations.RegisterLazySingleton<RoutingState>();
         SplatRegistrations.RegisterLazySingleton<TankService>();
         SplatRegistrations.RegisterLazySingleton<SensorService>();
