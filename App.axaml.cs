@@ -54,24 +54,6 @@ public class App : Application
             singleView.MainView = new MainView() { DataContext = new MainWindowViewModel() };
         }
 
-        StartupRelayTest();
-        StartupSensorTest();
         base.OnFrameworkInitializationCompleted();
-    }
-
-    private void StartupSensorTest()
-    {
-        var sensorService = Locator.Current.GetService<SensorService>();
-        Task.Run(() =>
-        {
-            Console.WriteLine("Starting the Sensor Service");
-            sensorService?.StartTemperatureMonitorAsync();
-        });
-    }
-
-    private void StartupRelayTest()
-    {
-        var relayService = Locator.Current.GetService<RelayService>();
-        relayService?.TriggerRelayAsync();
     }
 }

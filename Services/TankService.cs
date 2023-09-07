@@ -16,6 +16,7 @@ public class TankService
 
     public TankService()
     {
+        Console.WriteLine("Tank Service is in standby mode");
         Tanks = MockData();
     }
 

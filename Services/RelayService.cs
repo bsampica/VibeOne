@@ -15,6 +15,7 @@ public class RelayService : IDisposable
 
     public RelayService()
     {
+        Console.WriteLine("Relay Service is in standby mode");
         _gpioController.OpenPin(PinNumber, PinMode.Output, PinValue.Low);
         _gpioController.RegisterCallbackForPinValueChangedEvent(PinNumber, PinEventTypes.Falling | PinEventTypes.Rising,
             OnPinEvent);

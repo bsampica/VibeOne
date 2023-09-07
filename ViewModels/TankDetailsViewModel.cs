@@ -73,13 +73,14 @@ public class TankDetailsViewModel : ViewModelBase, IRoutableViewModel
             new SensorService(); // TODO: Figure out how to handle null locator calls.
 
         _sensorService.PropertyChanged += HandleTemperatureChange;
+        _sensorService.StartTemperatureMonitorAsync();
+
         BuildChartSeriesData();
 
         if (Co2Service.IsAttachedAndRunning)
         {
             // HANDLE THE UI OR WHATEVER HERE TO INDICATE THERE IS AN OPERATION ATTACHED
         }
-        
     }
 
     private void HandleTemperatureChange(object? sender, PropertyChangedEventArgs args)

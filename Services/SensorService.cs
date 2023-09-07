@@ -63,6 +63,7 @@ public class SensorService : INotifyPropertyChanged
 
     public async Task StartTemperatureMonitorAsync()
     {
+        Console.Write("Starting the Sensor Service");
         MainTankTemperature.OnNext(9999.99);
         while (!_token.IsCancellationRequested)
         {
